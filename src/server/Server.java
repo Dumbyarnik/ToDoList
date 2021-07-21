@@ -22,7 +22,7 @@ import java.util.Map;
 public class Server extends UnicastRemoteObject implements ServerInterface, Serializable {
 
     Map<String, ClientInterface> clients = new HashMap<>();
-    // to do list
+    // Beta To Do Version
     static ArrayList<String> todo = new ArrayList<String>();
 
     public Server() throws RemoteException { }
