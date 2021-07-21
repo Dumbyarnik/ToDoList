@@ -6,8 +6,14 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="vts7" />
+          <element id="library" level="project" name="apache-tomcat-8.5" />
         </element>
         <element id="library" level="project" name="apache-tomcat-8.5" />
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/jstl-1.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/mysql-connector.jar" />
+        </element>
       </element>
     </root>
   </artifact>
