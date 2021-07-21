@@ -6,6 +6,8 @@ import client.ClientInterface;
 import server.database.RegistrationDAO;
 import server.database.User;
 
+import java.io.NotSerializableException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Server extends UnicastRemoteObject implements ServerInterface {
+public class Server extends UnicastRemoteObject implements ServerInterface, Serializable {
 
     Map<String, ClientInterface> clients = new HashMap<>();
     // to do list
@@ -44,12 +46,21 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public int subscribeUserDatabase(User user) throws ClassNotFoundException, RemoteException {
+    public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException {
 
-        RegistrationDAO regDAO = new RegistrationDAO();
+        System.out.println("Error");
 
-        if (regDAO.registerUser(user) == 1)
-            return 1;
+        try {
+            RegistrationDAO regDAO = new RegistrationDAO();
+
+            if (regDAO.registerUser(firstName, lastName, userName, password) == 1)
+                return 1;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println("Error");
+            e.printStackTrace();
+        }
 
         return 0;
 

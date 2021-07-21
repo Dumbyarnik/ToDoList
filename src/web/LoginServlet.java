@@ -38,17 +38,13 @@ public class LoginServlet extends HttpServlet {
         loginBean.setUsername(username);
         loginBean.setPassword(password);
 
-
-
-
-
-
         try {
             if (loginDao.validate(loginBean)) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
                 dispatcher.forward(request, response);
             } else {
                 HttpSession session = request.getSession();
+
                 // session.setAttribute("user", username);
                 // response.sendRedirect("login.jsp");
             }

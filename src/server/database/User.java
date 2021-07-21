@@ -1,12 +1,18 @@
 package server.database;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
 
     private String firstName;
     private String lastName;
     private String userName;
     private String password;
+
+    public User(){
+
+    }
 
 
     public String getUserName() {

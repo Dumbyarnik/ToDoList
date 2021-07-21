@@ -63,20 +63,8 @@ import java.rmi.server.UnicastRemoteObject;
 
         private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
 
-            // Experimental server code
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-
-            Client client = new Client();
-            ClientInterface handle = (ClientInterface) UnicastRemoteObject.exportObject((Remote) client, 0);
-
-            serverInterface.subscribeUser(username, handle);
-
-
             // Dennis Database Code
-            /*String firstName = request.getParameter("firstName");
+            String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
@@ -87,10 +75,10 @@ import java.rmi.server.UnicastRemoteObject;
             user.setUserName(username);
             user.setPassword(password);
 
-            serverInterface.subscribeUserDatabase(user);*/
 
-            /*try {
-                int result = registrationDao.registerUser(employee);
+
+            try {
+                int result = serverInterface.subscribeUserDatabase(firstName, lastName, username, password);
                 if (result == 1) {
                     request.setAttribute("NOTIFICATION", "User Registered Successfully!");
                 }
@@ -99,7 +87,7 @@ import java.rmi.server.UnicastRemoteObject;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            */
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
             dispatcher.forward(request, response);
         }

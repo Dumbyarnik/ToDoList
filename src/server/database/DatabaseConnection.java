@@ -37,7 +37,7 @@ public class DatabaseConnection {
             System.out.println("It works");
         }
 */
-        add("va");
+        add("cool");
       update(2,"MrUpdate");
         delete(1);
 
