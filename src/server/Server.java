@@ -1,0 +1,92 @@
+package server;
+
+import broadcast.Broadcast;
+import broadcast.BroadcastInterface;
+import client.ClientInterface;
+
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Server extends UnicastRemoteObject implements ServerInterface {
+
+    Map<String, ClientInterface> clients = new HashMap<>();
+    // to do list
+    static ArrayList<String> todo = new ArrayList<String>();
+
+    public Server() throws RemoteException { }
+
+    @Override
+    public BroadcastInterface subscribeUser(String username, ClientInterface handle) {
+
+        clients.put(username, handle);
+        System.out.println(username + " registered.");
+
+        Broadcast broadcast = new Broadcast(this, username);
+        BroadcastInterface broadcastInterface;
+
+        try {
+            broadcastInterface = (BroadcastInterface) UnicastRemoteObject.exportObject(broadcast,0);
+        } catch (RemoteException remoteException) {
+            remoteException.printStackTrace();
+            System.out.println("Can't register " + username);
+            return null;
+        }
+        return broadcastInterface;
+    }
+    @Override
+    public boolean unsubscribeUser(String username) {
+        return clients.remove(username) != null;
+    }
+    public Map<String, ClientInterface> getClients() {
+        return clients;
+    }
+
+    // Todo Functionality
+    @Override
+    public ArrayList<String> getTodo() {
+        return todo;
+    }
+    @Override
+    public boolean addTodo(String item) {
+        todo.add(item);
+        return true;
+    }
+    @Override
+    public boolean deleteTodo(int i) {
+        todo.remove(i);
+        return true;
+    }
+    @Override
+    public boolean updateTodo(int i, String s) {
+        todo.set(i, s);
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        todo.add("home");
+        todo.add("work");
+        todo.add("plant");
+
+
+        try {
+            // Creating the server
+            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+            Naming.rebind("ChatServer", new Server());
+            System.out.println("Server started");
+        } catch (RemoteException e) {
+            System.err.println("Exception occurred while registering the server.");
+            e.printStackTrace();
+            System.exit(-1);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}
