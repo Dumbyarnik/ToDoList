@@ -33,7 +33,7 @@ public class TodoServlet extends HttpServlet {
         String UsernameLabel="passing value";
         request.setAttribute("mes_add_pageTitle",UsernameLabel);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("todo.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("todoList.jsp");
         dispatcher.forward(request, response);
     }
 

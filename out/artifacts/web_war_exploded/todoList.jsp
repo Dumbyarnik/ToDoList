@@ -22,10 +22,6 @@
 
     <h2>ToDo List</h2>
 
-    <% String userlabel=(String)request.getAttribute("mes_add_pageTitle"); %>
-
-    Value is: <%=userlabel%>
-
     <!-- Table of ToDos -->
     <form class="col-md-6 col-md-offset-3">
         <div class="container text-left">
