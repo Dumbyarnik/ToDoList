@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserDAO {
+public class RegistrationDAO {
 
 
 
@@ -17,7 +17,7 @@ public class UserDAO {
 
         int result = 0;
 
-        try (Connection connection = testConnection.getConnection();
+        try (Connection connection = DatabaseConnection.getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, u.getFirstName());

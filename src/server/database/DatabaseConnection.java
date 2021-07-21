@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 
-public class testConnection  {
+public class DatabaseConnection {
 
     private static String CONN = "jdbc:mysql://localhost:3306/TODO"; // hier bitte link zur Datenbank eingeben
 
@@ -37,9 +37,9 @@ public class testConnection  {
             System.out.println("It works");
         }
 */
-        add("bongo");
-      update(6,"MrUpdate");
-        delete(5);
+        add("va");
+      update(2,"MrUpdate");
+        delete(1);
 
     }
 

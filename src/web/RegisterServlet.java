@@ -3,7 +3,8 @@ package web;
 import client.Client;
 import client.ClientInterface;
 import server.ServerInterface;
-import server.database.UserDAO;
+import server.database.User;
+import server.database.RegistrationDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ import java.rmi.server.UnicastRemoteObject;
         ServerInterface serverInterface;
 
 
-        private UserDAO userDao;
+        private RegistrationDAO registrationDao;
 
         public void init() {
 
@@ -41,12 +42,16 @@ import java.rmi.server.UnicastRemoteObject;
                 ex.printStackTrace();
             }
 
-            userDao = new UserDAO();
+            registrationDao = new RegistrationDAO();
         }
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-            register(request, response);
+            try {
+                register(request, response);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
         }
 
@@ -56,7 +61,7 @@ import java.rmi.server.UnicastRemoteObject;
 
         }
 
-        private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
 
             // Experimental server code
             String firstName = request.getParameter("firstName");
@@ -76,14 +81,16 @@ import java.rmi.server.UnicastRemoteObject;
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
-            User employee = new User();
-            employee.setFirstName(firstName);
-            employee.setLastName(lastName);
-            employee.setUserName(username);
-            employee.setPassword(password);
+            User user = new User();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setUserName(username);
+            user.setPassword(password);
 
-            try {
-                int result = userDao.registerUser(employee);
+            serverInterface.subscribeUserDatabase(user);*/
+
+            /*try {
+                int result = registrationDao.registerUser(employee);
                 if (result == 1) {
                     request.setAttribute("NOTIFICATION", "User Registered Successfully!");
                 }
@@ -91,8 +98,8 @@ import java.rmi.server.UnicastRemoteObject;
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }*/
-
+            }
+            */
             RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
             dispatcher.forward(request, response);
         }

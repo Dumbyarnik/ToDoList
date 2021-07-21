@@ -2,6 +2,7 @@ package server;
 
 import broadcast.BroadcastInterface;
 import client.ClientInterface;
+import server.database.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -16,4 +17,5 @@ public interface ServerInterface extends Remote{
     public boolean addTodo(String item) throws RemoteException;
     public boolean deleteTodo(int item) throws RemoteException;
     public boolean updateTodo(int i, String s) throws RemoteException;
+    public int subscribeUserDatabase(User user) throws ClassNotFoundException, RemoteException;
 }

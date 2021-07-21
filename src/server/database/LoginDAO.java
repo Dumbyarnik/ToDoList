@@ -3,7 +3,7 @@ package Login;
 
 
 import server.database.Logins;
-import server.database.testConnection;
+import server.database.DatabaseConnection;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class LoginDAO {
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = testConnection.getConnection();
+        try (Connection connection = DatabaseConnection.getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection
                      .prepareStatement("select * from user where userName = ? and password = ? ")) {

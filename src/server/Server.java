@@ -3,6 +3,8 @@ package server;
 import broadcast.Broadcast;
 import broadcast.BroadcastInterface;
 import client.ClientInterface;
+import server.database.RegistrationDAO;
+import server.database.User;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -40,6 +42,19 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         }
         return broadcastInterface;
     }
+
+    @Override
+    public int subscribeUserDatabase(User user) throws ClassNotFoundException, RemoteException {
+
+        RegistrationDAO regDAO = new RegistrationDAO();
+
+        if (regDAO.registerUser(user) == 1)
+            return 1;
+
+        return 0;
+
+    }
+
     @Override
     public boolean unsubscribeUser(String username) {
         return clients.remove(username) != null;
@@ -70,10 +85,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     }
 
     public static void main(String[] args) {
-
-        todo.add("home");
-        todo.add("work");
-        todo.add("plant");
 
 
         try {
