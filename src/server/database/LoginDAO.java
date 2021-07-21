@@ -1,8 +1,8 @@
-package Login;
+package server.database;
 
 
 
-import server.database.Logins;
+import server.database.Login;
 import server.database.DatabaseConnection;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class LoginDAO {
 
-    public boolean validate(Logins login) throws ClassNotFoundException {
+    public boolean validate(String username, String password) throws ClassNotFoundException {
         boolean status = false;
 
         Class.forName("com.mysql.jdbc.Driver");
@@ -22,8 +22,8 @@ public class LoginDAO {
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection
                      .prepareStatement("select * from user where userName = ? and password = ? ")) {
-            preparedStatement.setString(1, login.getUsername());
-            preparedStatement.setString(2, login.getPassword());
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
 
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();

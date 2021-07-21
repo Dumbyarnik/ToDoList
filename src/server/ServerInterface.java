@@ -14,9 +14,12 @@ public interface ServerInterface extends Remote{
     public boolean unsubscribeUser (String username) throws RemoteException;
 
     // To Do Functionality
-    public ArrayList<String> getTodo() throws RemoteException;
-    public boolean addTodo(String item) throws RemoteException;
-    public boolean deleteTodo(int item) throws RemoteException;
-    public boolean updateTodo(int i, String s) throws RemoteException;
-    public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException;
+    ArrayList<String> getTodo() throws RemoteException;
+    boolean addTodo(String item) throws RemoteException;
+    boolean deleteTodo(int item) throws RemoteException;
+    boolean updateTodo(int i, String s) throws RemoteException;
+
+    // Ready Database Functionality
+    int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException;
+    int loginUser(String username, String password) throws RemoteException;
 }

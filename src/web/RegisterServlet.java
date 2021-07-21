@@ -30,11 +30,9 @@ import java.rmi.server.UnicastRemoteObject;
         Registry registry = null;
         ServerInterface serverInterface;
 
-
-        private RegistrationDAO registrationDao;
-
         public void init() {
 
+            // initializing server
             try {
                 registry = LocateRegistry.getRegistry();
                 serverInterface = (ServerInterface) registry.lookup("ChatServer");
@@ -42,7 +40,6 @@ import java.rmi.server.UnicastRemoteObject;
                 ex.printStackTrace();
             }
 
-            registrationDao = new RegistrationDAO();
         }
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -63,7 +60,6 @@ import java.rmi.server.UnicastRemoteObject;
 
         private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
 
-            // Dennis Database Code
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String username = request.getParameter("username");
@@ -75,8 +71,7 @@ import java.rmi.server.UnicastRemoteObject;
             user.setUserName(username);
             user.setPassword(password);
 
-
-
+            // subscribing user on the server
             try {
                 int result = serverInterface.subscribeUserDatabase(firstName, lastName, username, password);
                 if (result == 1) {

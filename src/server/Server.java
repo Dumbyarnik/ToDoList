@@ -3,6 +3,7 @@ package server;
 import broadcast.Broadcast;
 import broadcast.BroadcastInterface;
 import client.ClientInterface;
+import server.database.LoginDAO;
 import server.database.RegistrationDAO;
 import server.database.User;
 
@@ -26,6 +27,46 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
 
     public Server() throws RemoteException { }
 
+
+    // New Database Code
+    @Override
+    public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException {
+
+        try {
+            RegistrationDAO regDAO = new RegistrationDAO();
+
+            if (regDAO.registerUser(firstName, lastName, userName, password) == 1)
+                return 1;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+    @Override
+    public int loginUser(String username, String password) throws RemoteException {
+        try {
+            LoginDAO logDAO = new LoginDAO();
+
+            if (logDAO.validate(username, password))
+                return 1;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+
+    // Old code
     @Override
     public BroadcastInterface subscribeUser(String username, ClientInterface handle) {
 
@@ -44,28 +85,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         }
         return broadcastInterface;
     }
-
-    @Override
-    public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException {
-
-        System.out.println("Error");
-
-        try {
-            RegistrationDAO regDAO = new RegistrationDAO();
-
-            if (regDAO.registerUser(firstName, lastName, userName, password) == 1)
-                return 1;
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            System.out.println("Error");
-            e.printStackTrace();
-        }
-
-        return 0;
-
-    }
-
     @Override
     public boolean unsubscribeUser(String username) {
         return clients.remove(username) != null;
