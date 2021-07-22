@@ -68,13 +68,12 @@ import java.util.Date;
 
             // adding todo on the server
             try {
-                //int result = serverInterface.addTodoDatabase(item, status, date);
+                int result = serverInterface.addTodoDatabase(item, status, date);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
-            dispatcher.forward(request, response);
+            
+            response.sendRedirect("todoList");
         }
     }
