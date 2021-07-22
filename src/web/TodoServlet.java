@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "/todo")
+@WebServlet(name = "/todoList")
 public class TodoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +28,7 @@ public class TodoServlet extends HttpServlet {
     Registry registry = null;
     ServerInterface serverInterface;
 
+    @Override
     public void init() {
         // initializing server
         try {
@@ -38,11 +39,26 @@ public class TodoServlet extends HttpServlet {
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+
+        // if delete button was klicked
+        if (request.getParameter("delete") != null) {
+            // getting unique id parameter
+            String id_tmp = request.getParameter("delete_id");
+            int id = Integer.parseInt(id_tmp);
+            try {
+                deleteTodo(request, response, id);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -50,10 +66,6 @@ public class TodoServlet extends HttpServlet {
 
         try {
             switch (action) {
-
-                case "/delete":
-
-                    break;
 
                 default:
                     listTodo(request, response);
@@ -75,5 +87,13 @@ public class TodoServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void deleteTodo(HttpServletRequest request, HttpServletResponse response, int id)
+            throws SQLException, IOException, ClassNotFoundException, ServletException {
+        // deleteing the id
+        serverInterface.deleteTodoDatabase(id);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("todoList.jsp");
+        dispatcher.forward(request, response);
+    }
 
 }

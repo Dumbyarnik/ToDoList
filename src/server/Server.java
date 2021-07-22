@@ -135,7 +135,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         return true;
     }
 
-    public static void main(String[] args) throws RemoteException, ClassNotFoundException {
+    public static void main(String[] args) throws RemoteException, ClassNotFoundException, SQLException {
 
 
         try {
@@ -150,6 +150,5 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
     }
 }
