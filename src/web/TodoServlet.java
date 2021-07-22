@@ -14,6 +14,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
@@ -45,24 +46,34 @@ public class TodoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // subscribing user on the server
+        String action = request.getServletPath();
+
         try {
-            // Getting todo list from the server
-            ArrayList<Todo> todos = serverInterface.getTodoDatabase();
-            ArrayList<String> todosString = new ArrayList<>();
+            switch (action) {
 
-            for (Todo item : todos)
-                todosString.add(item.getItem());
-            // Setting list to the attribute in jsp
-            request.setAttribute("todoList", todosString);
+                case "/delete":
 
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                    break;
+
+                default:
+                    listTodo(request, response);
+                    break;
+            }
+        } catch (ClassNotFoundException ex) {
+            throw new ServletException(ex);
         }
+    }
+
+
+    private void listTodo(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, ServletException {
+        // Setting list to the attribute in jsp
+        ArrayList<Todo> todos = serverInterface.getTodoDatabase();
+        request.setAttribute("todoList", todos);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("todoList.jsp");
         dispatcher.forward(request, response);
     }
+
 
 }

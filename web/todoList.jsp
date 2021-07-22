@@ -34,9 +34,9 @@
                 </thead>
 
                 <tbody>
-                    <c:forEach var="item" items="${todoList}">
+                    <c:forEach var="todo" items="${todoList}">
                         <tr>
-                            <td><c:out value="${item}" /></td>
+                            <td><c:out value="${todo.item}" /></td>
                         </tr>
                     </c:forEach>
                 </tbody>
