@@ -1,10 +1,7 @@
 package web;
 
-import client.Client;
-import client.ClientInterface;
 import server.ServerInterface;
-import server.database.User;
-import server.database.RegistrationDAO;
+import server.database.registration.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,11 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 
 @WebServlet(name= "/register")

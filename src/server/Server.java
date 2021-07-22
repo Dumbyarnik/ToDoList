@@ -3,9 +3,10 @@ package server;
 import broadcast.Broadcast;
 import broadcast.BroadcastInterface;
 import client.ClientInterface;
-import server.database.LoginDAO;
-import server.database.RegistrationDAO;
-import server.database.User;
+import server.database.login.LoginDAO;
+import server.database.registration.RegistrationDAO;
+import server.database.todolist.Todo;
+import server.database.todolist.TodoDAO;
 
 import java.io.NotSerializableException;
 import java.io.Serializable;
@@ -65,6 +66,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         return 0;
     }
 
+    @Override
+    public ArrayList<Todo> getTodoDatabase() throws RemoteException, ClassNotFoundException {
+
+        TodoDAO dao = new TodoDAO();
+        dao.getTodo();
+
+        return null;
+    }
+
 
     // Old code
     @Override
@@ -114,7 +124,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         return true;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException, ClassNotFoundException {
 
 
         try {
@@ -129,5 +139,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        
     }
 }

@@ -1,4 +1,6 @@
-package server.database;
+package server.database.registration;
+
+import server.database.DatabaseConnection;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
