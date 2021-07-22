@@ -25,11 +25,21 @@
         <form action="<%=request.getContextPath()%>/newTodo" method="post">
 
             <div class="form-group">
-                <label for="firstName">Name:</label> <input type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName" required>
-            </div>
+                <label for="itemName">Name:</label>
+                <input type="text" class="form-control" id="itemName" placeholder="Item Name" name="itemName" required>
 
-            <div class="form-group">
-                <label for="lastName">Last Name:</label> <input type="text" class="form-control" id="lastName" placeholder="last Name" name="lastName" required>
+                <p>Status:</p>
+                <fieldset class="form-group">
+                    <label>Todo Status</label>
+                    <select class="form-control" name="status">
+                        <option value="1">planned</option>
+                        <option value="2">in progress</option>
+                        <option value="3">complete</option>
+                    </select>
+                </fieldset>
+
+                <label for="date">Date:</label>
+                <input type="date" class="form-control" id="date" placeholder="Date" name="date" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
