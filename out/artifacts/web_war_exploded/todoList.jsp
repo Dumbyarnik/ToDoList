@@ -22,7 +22,9 @@
 <div class="container">
 
     <h2>ToDo List</h2>
-
+    <form  action="${pageContext.request.contextPath}/todoList" method="POST">
+        <input type="submit" name="add" value="Add">
+    </form>
 
     <!-- Table of ToDos -->
     <form class="col-md-6 col-md-offset-3" action="${pageContext.request.contextPath}/todoList" method="POST">

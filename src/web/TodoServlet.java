@@ -43,7 +43,7 @@ public class TodoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // if delete button was klicked
+        // if delete button was clicked
         if (request.getParameter("delete") != null) {
             // getting unique id parameter
             String id_tmp = request.getParameter("delete_id");
@@ -55,6 +55,10 @@ public class TodoServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+            // if the button add was clicked
+        } else if (request.getParameter("add") != null){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

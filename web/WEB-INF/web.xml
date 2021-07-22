@@ -26,7 +26,7 @@
         <url-pattern>/userlogin</url-pattern>
     </servlet-mapping>
 
-    <!--ToDo List Servlet -->
+    <!--Todo List Servlet -->
     <servlet>
         <servlet-name>todoList</servlet-name>
         <servlet-class>web.TodoServlet</servlet-class>
@@ -37,8 +37,19 @@
         <url-pattern>/todoList</url-pattern>
     </servlet-mapping>
 
+    <!--New Todo Servlet -->
+    <servlet>
+        <servlet-name>newTodo</servlet-name>
+        <servlet-class>web.NewTodoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>newTodo</servlet-name>
+        <url-pattern>/newTodo</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
-        <welcome-file>todoList</welcome-file>
+        <welcome-file>newTodo</welcome-file>
     </welcome-file-list>
 
 
