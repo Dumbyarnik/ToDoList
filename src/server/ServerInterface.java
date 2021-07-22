@@ -7,6 +7,7 @@ import server.database.todolist.Todo;
 import java.io.NotSerializableException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ServerInterface extends Remote{
@@ -16,6 +17,7 @@ public interface ServerInterface extends Remote{
     int loginUser(String username, String password) throws RemoteException;
 
     ArrayList<Todo> getTodoDatabase() throws RemoteException, ClassNotFoundException;
+    int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException;
 
 
     BroadcastInterface subscribeUser (String username, ClientInterface handle) throws RemoteException;

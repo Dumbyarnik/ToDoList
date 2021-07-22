@@ -16,12 +16,18 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Server extends UnicastRemoteObject implements ServerInterface, Serializable {
 
+    // new code
+
+
+
+    // old code
     Map<String, ClientInterface> clients = new HashMap<>();
     // Beta To Do Version
     static ArrayList<String> todo = new ArrayList<String>();
@@ -71,6 +77,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
 
         TodoDAO dao = new TodoDAO();
         return dao.getTodo();
+    }
+
+    @Override
+    public int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException {
+        TodoDAO todoDAO = new TodoDAO();
+        int status = todoDAO.deleteTodo(id);
+        return status;
     }
 
 
