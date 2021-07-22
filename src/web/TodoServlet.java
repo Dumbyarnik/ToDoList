@@ -71,7 +71,9 @@ public class TodoServlet extends HttpServlet {
                 throwables.printStackTrace();
             }
             
-            System.out.println(todo);
+            request.setAttribute("todo", todo);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
+            dispatcher.forward(request, response);
 
         }
         // if the button add was clicked

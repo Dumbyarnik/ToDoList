@@ -49,7 +49,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>newTodo</welcome-file>
+        <welcome-file>todoList</welcome-file>
     </welcome-file-list>
 
 

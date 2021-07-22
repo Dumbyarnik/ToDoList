@@ -49,6 +49,7 @@ import java.util.Date;
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
+
             response.sendRedirect("newTodo.jsp");
 
         }
@@ -58,13 +59,6 @@ import java.util.Date;
             String item = request.getParameter("itemName");
             String status = request.getParameter("status");
             String date = request.getParameter("date");
-
-            if (status.equals("1"))
-                status = "planned";
-            else if (status.equals("2"))
-                status = "in progress";
-            else if (status.equals("3"))
-                status = "complete";
 
             // adding todo on the server
             try {
