@@ -34,19 +34,13 @@
                 </thead>
 
                 <tbody>
-                    <c:forEach var="item" items="${listTodo}">
+                    <c:forEach var="item" items="${todoList}">
                         <tr>
                             <td><c:out value="${item}" /></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-
-            <c:forEach var="list" items="${listTodo}">
-                <c:out value="${list}"/>
-            </c:forEach>
-
-
         </div>
     </form>
 </div>
