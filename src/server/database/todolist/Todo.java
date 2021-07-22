@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Todo implements Serializable {
         private static final long serialVersionUID = 1L;
         private int id;
-        protected String item;
+        private String item;
 
         public Todo(){}
 
@@ -14,11 +14,11 @@ public class Todo implements Serializable {
             this.item = item;
         }
 
-        public int getID() {
+        public int getId() {
             return id;
         }
 
-        public void setID(int id) {
+        public void setId(int id) {
             this.id = id;
         }
 

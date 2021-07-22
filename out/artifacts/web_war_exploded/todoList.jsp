@@ -30,6 +30,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
@@ -37,6 +38,8 @@
                     <c:forEach var="todo" items="${todoList}">
                         <tr>
                             <td><c:out value="${todo.item}" /></td>
+                            <td><a href="delete?id=<c:out value='${todo.id}' />">Delete</a></td>
+
                         </tr>
                     </c:forEach>
                 </tbody>
