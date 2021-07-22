@@ -40,11 +40,10 @@ import java.rmi.registry.Registry;
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             try {
-                register(request, response);
+                addTodo(request, response);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -53,7 +52,7 @@ import java.rmi.registry.Registry;
 
         }
 
-        private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
+        private void addTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
 
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
