@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class TodoDAO {
 
     // returns the list of all todo items
-    public boolean getTodo() throws ClassNotFoundException {
+    public ArrayList<Todo> getTodo() throws ClassNotFoundException {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
@@ -33,12 +33,15 @@ public class TodoDAO {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
 
-            // Condiion check
+            // Going through the todo table
             while (rs.next()) {
 
                 int id = rs.getInt("ToDoID");
                 String item = rs.getString("ToDoName");
-                System.out.println(id + "\t\t" + item);
+
+                todos.add(new Todo(id, item));
+
+                //System.out.println(id + "\t\t" + item);
             }
 
             //status = rs.next();
@@ -63,7 +66,7 @@ public class TodoDAO {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return status;
+        return todos;
     }
 
 

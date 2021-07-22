@@ -70,9 +70,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     public ArrayList<Todo> getTodoDatabase() throws RemoteException, ClassNotFoundException {
 
         TodoDAO dao = new TodoDAO();
-        dao.getTodo();
-
-        return null;
+        return dao.getTodo();
     }
 
 
@@ -139,6 +137,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        
+
     }
 }

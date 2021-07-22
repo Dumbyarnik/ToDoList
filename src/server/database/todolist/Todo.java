@@ -9,6 +9,11 @@ public class Todo implements Serializable {
 
         public Todo(){}
 
+        public Todo(int id, String item){
+            this.id = id;
+            this.item = item;
+        }
+
         public int getID() {
             return id;
         }
