@@ -49,6 +49,9 @@
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />
+
+                                <input type="submit" name="edit" value="Edit">
+                                <input type="hidden" name="edit_id" value="${todo.id}" />
                             </td>
                         </tr>
                     </c:forEach>

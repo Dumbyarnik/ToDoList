@@ -80,6 +80,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
+    public Todo getOneTodo(int id) throws RemoteException, ClassNotFoundException, SQLException {
+        Todo todo = new Todo();
+        TodoDAO todoDAO = new TodoDAO();
+
+        todo = todoDAO.getOneTodo(id);
+
+        return todo;
+    }
+
+    @Override
     public int addTodoDatabase(String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
         int result = todoDAO.addTodo(item, status, date);
@@ -91,6 +101,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         TodoDAO todoDAO = new TodoDAO();
         int status = todoDAO.deleteTodo(id);
         return status;
+    }
+
+    @Override
+    public int updateTodoDatabase(int id, String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException {
+        TodoDAO todoDAO = new TodoDAO();
+        int result = todoDAO.updateTodo(id, item, status, date);
+        return result;
     }
 
 
@@ -121,7 +138,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         return clients;
     }
 
-    // Todo Functionality
     @Override
     public ArrayList<String> getTodo() {
         return todo;

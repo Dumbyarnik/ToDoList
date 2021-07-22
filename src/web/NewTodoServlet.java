@@ -2,6 +2,7 @@ package web;
 
 import server.ServerInterface;
 import server.database.registration.User;
+import server.database.todolist.Todo;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,15 +41,25 @@ import java.util.Date;
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-            try {
-                addTodo(request, response);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+
+            if (request.getParameter("edit") != null) {
+                try {
+                    updateTodo(request, response);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else if (request.getParameter("new") != null){
+                try {
+                    addTodo(request, response);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
+
             response.sendRedirect("newTodo.jsp");
 
         }
@@ -58,13 +69,6 @@ import java.util.Date;
             String item = request.getParameter("itemName");
             String status = request.getParameter("status");
             String date = request.getParameter("date");
-
-            if (status == "1")
-                status = "planned";
-            else if (status == "2")
-                status = "in progress";
-            else if (status == "3")
-                status = "complete";
 
             // adding todo on the server
             try {
@@ -76,4 +80,24 @@ import java.util.Date;
             
             response.sendRedirect("todoList");
         }
+
+    private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
+
+        String id_tmp = request.getParameter("edit_id");
+        int id = Integer.parseInt(id_tmp);
+
+        String item = request.getParameter("itemName");
+        String status = request.getParameter("status");
+        String date = request.getParameter("date");
+
+        // adding todo on the server
+        try {
+            int result = serverInterface.updateTodoDatabase(id, item, status, date);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("todoList");
+    }
     }
