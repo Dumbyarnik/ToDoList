@@ -158,4 +158,39 @@ public class TodoDAO {
 
     }
 
+    // updates a todo item
+    public int updateTodo(int id, String item, String status, String date) throws ClassNotFoundException, SQLException {
+
+        int result = 0;
+
+        try (Connection connection = DatabaseConnection.getConnection();) {
+            String query =
+                    "UPDATE todos\n" +
+                            "SET ToDoName = '" + item + "'" + ", " +
+                            "Status = '" + status + "'" + ", " +
+                            "ToDoDate = '" + date + "'" +
+                            "WHERE ToDoID=" + "'" + id + "';";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            result = ps.executeUpdate();
+            if (result == 1) {
+                System.out.println("Great Update!");
+            }
+
+        } catch (SQLException se) {
+            System.out.println(se);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }
