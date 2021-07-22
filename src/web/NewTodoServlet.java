@@ -14,6 +14,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Date;
 
 
 @WebServlet(name= "/newTodo")
@@ -54,24 +55,20 @@ import java.rmi.registry.Registry;
 
         private void addTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
 
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            String item = request.getParameter("itemName");
+            String status = request.getParameter("status");
+            String date = request.getParameter("date");
 
-            User user = new User();
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setUserName(username);
-            user.setPassword(password);
+            if (status == "1")
+                status = "planned";
+            else if (status == "2")
+                status = "in progress";
+            else if (status == "3")
+                status = "complete";
 
-            // subscribing user on the server
+            // adding todo on the server
             try {
-                int result = serverInterface.subscribeUserDatabase(firstName, lastName, username, password);
-                if (result == 1) {
-                    request.setAttribute("NOTIFICATION", "User Registered Successfully!");
-                }
-
+                //int result = serverInterface.addTodoDatabase(item, status, date);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
