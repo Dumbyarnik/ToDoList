@@ -173,9 +173,6 @@ public class TodoDAO {
 
             PreparedStatement ps = connection.prepareStatement(query);
             result = ps.executeUpdate();
-            if (result == 1) {
-                System.out.println("Great Update!");
-            }
 
         } catch (SQLException se) {
             System.out.println(se);

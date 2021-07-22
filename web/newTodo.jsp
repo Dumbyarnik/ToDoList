@@ -94,7 +94,7 @@
                     <input type="hidden" name="edit_id" value="${todo.id}" />
                 </c:when>
                 <c:otherwise>
-                    <button type="submit" class="btn btn-primary">Add New</button>
+                    <input type="submit" name="new" value="Add New">
                 </c:otherwise>
             </c:choose>
 

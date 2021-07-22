@@ -20,6 +20,7 @@ public interface ServerInterface extends Remote{
     Todo getOneTodo(int id) throws RemoteException, ClassNotFoundException, SQLException;
     int addTodoDatabase(String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException;
     int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException;
+    int updateTodoDatabase(int id, String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException;
 
 
     BroadcastInterface subscribeUser (String username, ClientInterface handle) throws RemoteException;
