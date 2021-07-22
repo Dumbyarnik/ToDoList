@@ -86,12 +86,12 @@
                         <input type="date" class="form-control" id="date" placeholder="Date" name="date" required>
                     </c:otherwise>
                 </c:choose>
-
             </div>
 
             <c:choose>
                 <c:when test="${todo != null}">
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <input type="submit" name="edit" value="Edit">
+                    <input type="hidden" name="edit_id" value="${todo.id}" />
                 </c:when>
                 <c:otherwise>
                     <button type="submit" class="btn btn-primary">Add New</button>

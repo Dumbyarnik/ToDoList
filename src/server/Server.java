@@ -85,6 +85,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         TodoDAO todoDAO = new TodoDAO();
 
         todo = todoDAO.getOneTodo(id);
+
         return todo;
     }
 
@@ -130,7 +131,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         return clients;
     }
 
-    // Todo Functionality
     @Override
     public ArrayList<String> getTodo() {
         return todo;
@@ -166,8 +166,5 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        TodoDAO todoDAO = new TodoDAO();
-        System.out.println(todoDAO.getOneTodo(7));
     }
 }

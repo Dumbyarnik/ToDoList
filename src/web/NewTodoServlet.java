@@ -2,6 +2,7 @@ package web;
 
 import server.ServerInterface;
 import server.database.registration.User;
+import server.database.todolist.Todo;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,7 +42,7 @@ import java.util.Date;
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             try {
-                addTodo(request, response);
+                updateTodo(request, response);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -70,4 +71,25 @@ import java.util.Date;
             
             response.sendRedirect("todoList");
         }
+
+    private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
+
+        String id_tmp = request.getParameter("edit_id");
+        int id = Integer.parseInt(id_tmp);
+        
+
+        /*String item = request.getParameter("itemName");
+        String status = request.getParameter("status");
+        String date = request.getParameter("date");
+
+        // adding todo on the server
+        try {
+            int result = serverInterface.addTodoDatabase(item, status, date);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
+
+        response.sendRedirect("todoList");
+    }
     }

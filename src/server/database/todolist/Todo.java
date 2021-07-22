@@ -10,6 +10,12 @@ public class Todo implements Serializable {
         private String status;
         private String item;
 
+    public Todo(){}
+
+    public Todo(int id, String item){
+        this.id = id;
+        this.item = item;
+    }
 
     public String getStatus() {
         return status;
@@ -19,9 +25,6 @@ public class Todo implements Serializable {
         this.status = status;
     }
 
-
-
-
     public Date getDate() {
         return date;
     }
@@ -30,34 +33,25 @@ public class Todo implements Serializable {
         this.date = date;
     }
 
-
-
-    public Todo(){}
-
-    public Todo(int id, String item){
-            this.id = id;
-            this.item = item;
-        }
-
-        public int getId() {
+    public int getId() {
             return id;
         }
 
-        public void setId(int id) {
+    public void setId(int id) {
             this.id = id;
         }
 
-        public String getItem() {
+    public String getItem() {
             return item;
         }
 
-        public void setItem(String item) {
+    public void setItem(String item) {
             this.item = item;
         }
 
-        @Override
-        public String toString(){
-            return item + ", " + status + ", " + date;
+    @Override
+    public String toString(){
+            return id + ", " + item + ", " + status + ", " + date;
         }
 
 }

@@ -19,14 +19,11 @@ public class TodoDAO {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
-        Class.forName("com.mysql.jdbc.Driver");
-
         try (Connection connection = DatabaseConnection.getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection
                      .prepareStatement("select * from todos ")) {
 
-            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
 
             // Going through the todo table
@@ -131,12 +128,13 @@ public class TodoDAO {
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("SELECT ToDoName, Status, ToDoDate\n" +
+                     .prepareStatement("SELECT ToDoID, ToDoName, Status, ToDoDate\n" +
                              "from todos where ToDoID=" + id + ";")) {
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.next();
-            tmp.setItem(rs.getString("TodoName"));
+            tmp.setId(rs.getInt("ToDoID"));
+            tmp.setItem(rs.getString("ToDoName"));
             tmp.setStatus(rs.getString("Status"));
             tmp.setDate(rs.getDate("ToDoDate"));
 
