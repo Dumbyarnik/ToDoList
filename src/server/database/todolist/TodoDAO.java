@@ -21,8 +21,6 @@ public class TodoDAO {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
-        boolean status = false;
-
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -44,15 +42,6 @@ public class TodoDAO {
                 //System.out.println(id + "\t\t" + item);
             }
 
-            //status = rs.next();
-
-            if(status){
-                System.out.println("User wurde eingeloggt");
-            }
-            if(!status){
-                System.out.println("Username oder passwort ist falsch");
-            }
-
 
         } catch (SQLException e) {
             // process sql exception
@@ -69,5 +58,36 @@ public class TodoDAO {
         return todos;
     }
 
+    // deletes a todo item with an id
+    public int deleteTodo(int id) throws ClassNotFoundException, SQLException {
+        int status = 0;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement("DELETE FROM todos WHERE ToDoID=+"+ id+"")) {
+            status = preparedStatement.executeUpdate();
+
+
+            } catch (InvocationTargetException invocationTargetException) {
+            invocationTargetException.printStackTrace();
+        } catch (NoSuchMethodException noSuchMethodException) {
+            noSuchMethodException.printStackTrace();
+        } catch (InstantiationException instantiationException) {
+            instantiationException.printStackTrace();
+        } catch (IllegalAccessException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        }
+
+        if(status == 1){
+                System.out.println("Todo was deleted");
+        } else {
+            System.out.println("Todo was not deleted");
+        }
+
+        return status;
+
+    }
 
 }
