@@ -61,6 +61,18 @@ public class TodoServlet extends HttpServlet {
             // getting unique id parameter
             String id_tmp = request.getParameter("edit_id");
             int id = Integer.parseInt(id_tmp);
+            Todo todo = new Todo();
+
+            try {
+                todo = serverInterface.getOneTodo(id);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            
+            System.out.println(todo);
+
         }
         // if the button add was clicked
         else if (request.getParameter("add") != null){

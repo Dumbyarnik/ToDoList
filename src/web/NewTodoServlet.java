@@ -59,11 +59,11 @@ import java.util.Date;
             String status = request.getParameter("status");
             String date = request.getParameter("date");
 
-            if (status == "1")
+            if (status.equals("1"))
                 status = "planned";
-            else if (status == "2")
+            else if (status.equals("2"))
                 status = "in progress";
-            else if (status == "3")
+            else if (status.equals("3"))
                 status = "complete";
 
             // adding todo on the server
