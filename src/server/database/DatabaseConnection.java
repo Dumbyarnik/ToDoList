@@ -107,8 +107,6 @@ public class DatabaseConnection {
 
         connection=DriverManager.getConnection(url,USER,PASS);
         return connection;
-
-
     }
 }
 

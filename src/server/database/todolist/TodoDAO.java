@@ -8,10 +8,7 @@ package server.database.todolist;
 import server.database.DatabaseConnection;
 
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class TodoDAO {
@@ -87,6 +84,41 @@ public class TodoDAO {
         }
 
         return status;
+
+    }
+
+    // adds a new todo item
+    public int addTodo(String item, String status, String date) throws ClassNotFoundException, SQLException {
+        int result = 0;
+
+        long now = System.currentTimeMillis();
+
+        Date sqlDate = new Date(now);
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement("INSERT INTO todos (ToDoName, Status, ToDoDate)\n" +
+                             "VALUES ('" + item + "','" + status + "','" + date +"');")) {
+            result = preparedStatement.executeUpdate();
+
+
+        } catch (InvocationTargetException invocationTargetException) {
+            invocationTargetException.printStackTrace();
+        } catch (NoSuchMethodException noSuchMethodException) {
+            noSuchMethodException.printStackTrace();
+        } catch (InstantiationException instantiationException) {
+            instantiationException.printStackTrace();
+        } catch (IllegalAccessException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        }
+
+        if(result == 1){
+            System.out.println("Todo was added");
+        } else {
+            System.out.println("Todo was not added");
+        }
+
+        return result;
 
     }
 
