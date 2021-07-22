@@ -157,5 +157,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
+        TodoDAO todoDAO = new TodoDAO();
+        System.out.println(todoDAO.getOneTodo(7));
     }
 }

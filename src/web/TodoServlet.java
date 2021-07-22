@@ -55,11 +55,20 @@ public class TodoServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            // if the button add was clicked
-        } else if (request.getParameter("add") != null){
+        }
+        // the edit button was pressed
+        else if (request.getParameter("edit") != null){
+            // getting unique id parameter
+            String id_tmp = request.getParameter("edit_id");
+            int id = Integer.parseInt(id_tmp);
+        }
+        // if the button add was clicked
+        else if (request.getParameter("add") != null){
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
             dispatcher.forward(request, response);
         }
+
     }
 
     @Override

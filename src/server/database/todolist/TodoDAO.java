@@ -7,6 +7,7 @@ package server.database.todolist;
 
 import server.database.DatabaseConnection;
 
+import javax.xml.transform.Result;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -119,6 +120,43 @@ public class TodoDAO {
         }
 
         return result;
+
+    }
+
+    // adds a new todo item
+    public Todo getOneTodo(int id) throws ClassNotFoundException, SQLException {
+        int result = 0;
+
+        Todo tmp = new Todo();
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement("SELECT ToDoName, Status, ToDoDate\n" +
+                             "from todos where ToDoID=" + id + ";")) {
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next();
+            tmp.setItem(rs.getString("TodoName"));
+            tmp.setStatus(rs.getString("Status"));
+            tmp.setDate(rs.getDate("ToDoDate"));
+
+        } catch (InvocationTargetException invocationTargetException) {
+            invocationTargetException.printStackTrace();
+        } catch (NoSuchMethodException noSuchMethodException) {
+            noSuchMethodException.printStackTrace();
+        } catch (InstantiationException instantiationException) {
+            instantiationException.printStackTrace();
+        } catch (IllegalAccessException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        }
+
+        if(result == 1){
+            System.out.println("We got todo");
+        } else {
+            System.out.println("We didnt get todo");
+        }
+
+        return tmp;
 
     }
 

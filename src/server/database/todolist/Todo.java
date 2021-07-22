@@ -6,13 +6,35 @@ import java.util.Date;
 public class Todo implements Serializable {
         private static final long serialVersionUID = 1L;
         private int id;
-        private String item;
-        private String status;
         private Date date;
+        private String status;
+        private String item;
 
-        public Todo(){}
 
-        public Todo(int id, String item){
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+
+
+    public Todo(){}
+
+    public Todo(int id, String item){
             this.id = id;
             this.item = item;
         }
@@ -32,4 +54,10 @@ public class Todo implements Serializable {
         public void setItem(String item) {
             this.item = item;
         }
+
+        @Override
+        public String toString(){
+            return item + ", " + status + ", " + date;
+        }
+
 }
