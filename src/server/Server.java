@@ -3,9 +3,10 @@ package server;
 import broadcast.Broadcast;
 import broadcast.BroadcastInterface;
 import client.ClientInterface;
-import server.database.LoginDAO;
-import server.database.RegistrationDAO;
-import server.database.User;
+import server.database.login.LoginDAO;
+import server.database.registration.RegistrationDAO;
+import server.database.todolist.Todo;
+import server.database.todolist.TodoDAO;
 
 import java.io.NotSerializableException;
 import java.io.Serializable;
@@ -15,12 +16,18 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Server extends UnicastRemoteObject implements ServerInterface, Serializable {
 
+    // new code
+
+
+
+    // old code
     Map<String, ClientInterface> clients = new HashMap<>();
     // Beta To Do Version
     static ArrayList<String> todo = new ArrayList<String>();
@@ -63,6 +70,20 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         }
 
         return 0;
+    }
+
+    @Override
+    public ArrayList<Todo> getTodoDatabase() throws RemoteException, ClassNotFoundException {
+
+        TodoDAO dao = new TodoDAO();
+        return dao.getTodo();
+    }
+
+    @Override
+    public int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException {
+        TodoDAO todoDAO = new TodoDAO();
+        int status = todoDAO.deleteTodo(id);
+        return status;
     }
 
 
@@ -114,7 +135,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         return true;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException, ClassNotFoundException, SQLException {
 
 
         try {

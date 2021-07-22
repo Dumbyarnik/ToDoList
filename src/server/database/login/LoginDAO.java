@@ -1,8 +1,5 @@
-package server.database;
+package server.database.login;
 
-
-
-import server.database.Login;
 import server.database.DatabaseConnection;
 
 import java.lang.reflect.InvocationTargetException;

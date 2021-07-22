@@ -1,4 +1,4 @@
-package server.database;
+package server.database.registration;
 
 import java.io.Serializable;
 

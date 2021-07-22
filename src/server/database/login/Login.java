@@ -1,4 +1,4 @@
-package server.database;
+package server.database.login;
 
 
 import java.io.Serializable;

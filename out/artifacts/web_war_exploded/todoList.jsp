@@ -23,30 +23,31 @@
 
     <h2>ToDo List</h2>
 
+
     <!-- Table of ToDos -->
-    <form class="col-md-6 col-md-offset-3">
+    <form class="col-md-6 col-md-offset-3" action="${pageContext.request.contextPath}/todoList" method="POST">
         <div class="container text-left">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <c:forEach var="item" items="${listTodo}">
+                    <c:forEach var="todo" items="${todoList}">
                         <tr>
-                            <td><c:out value="${item}" /></td>
+                            <td><c:out value="${todo.item}" /></td>
+                            <!--<td><a href="todo/delete?id=<c:out value='${todo.id}' />">Delete</a></td>-->
+                            <td>
+                                <input type="submit" name="delete" value="Delete">
+                                <input type="hidden" name="delete_id" value="${todo.id}" />
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-
-            <c:forEach var="list" items="${listTodo}">
-                <c:out value="${list}"/>
-            </c:forEach>
-
-
         </div>
     </form>
 </div>
