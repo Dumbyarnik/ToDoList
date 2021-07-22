@@ -33,6 +33,8 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -42,6 +44,8 @@
                         <tr>
                             <td><c:out value="${todo.item}" /></td>
                             <!--<td><a href="todo/delete?id=<c:out value='${todo.id}' />">Delete</a></td>-->
+                            <td> </td>
+                            <td> </td>
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />
