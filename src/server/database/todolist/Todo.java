@@ -1,11 +1,14 @@
 package server.database.todolist;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Todo implements Serializable {
         private static final long serialVersionUID = 1L;
         private int id;
         private String item;
+        private String status;
+        private Date date;
 
         public Todo(){}
 

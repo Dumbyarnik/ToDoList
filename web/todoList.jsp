@@ -22,7 +22,9 @@
 <div class="container">
 
     <h2>ToDo List</h2>
-
+    <form  action="${pageContext.request.contextPath}/todoList" method="POST">
+        <input type="submit" name="add" value="Add">
+    </form>
 
     <!-- Table of ToDos -->
     <form class="col-md-6 col-md-offset-3" action="${pageContext.request.contextPath}/todoList" method="POST">
@@ -31,6 +33,8 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -40,6 +44,8 @@
                         <tr>
                             <td><c:out value="${todo.item}" /></td>
                             <!--<td><a href="todo/delete?id=<c:out value='${todo.id}' />">Delete</a></td>-->
+                            <td> </td>
+                            <td> </td>
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />
