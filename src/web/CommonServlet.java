@@ -11,7 +11,7 @@ public class CommonServlet extends HttpServlet {
             throws ServletException, IOException {
         if (request.getSession().getAttribute("user_logged") == null){
             request.setAttribute("error", "You haven't logged in yet");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 }
