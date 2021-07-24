@@ -19,7 +19,7 @@ import java.util.Date;
 
 
 @WebServlet(name= "/newTodo")
-    public class NewTodoServlet extends HttpServlet {
+    public class NewTodoServlet extends CommonServlet {
 
         private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ import java.util.Date;
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-
+            validate(request, response);
             response.sendRedirect("newTodo.jsp");
 
         }
@@ -81,7 +81,7 @@ import java.util.Date;
             response.sendRedirect("todoList");
         }
 
-    private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
+        private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
 
         String id_tmp = request.getParameter("edit_id");
         int id = Integer.parseInt(id_tmp);
