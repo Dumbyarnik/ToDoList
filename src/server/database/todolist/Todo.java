@@ -9,14 +9,16 @@ public class Todo implements Serializable {
         private Date date;
         private String status;
         private String item;
+        private long days;
 
     public Todo(){}
 
-    public Todo(int id, String item, String status, Date date){
+    public Todo(int id, String item, String status, Date date,long days){
         this.id = id;
         this.item = item;
         this.status = status;
         this.date = date;
+        this.days=days;
     }
 
     public String getStatus() {
@@ -55,5 +57,10 @@ public class Todo implements Serializable {
     public String toString(){
             return id + ", " + item + ", " + status + ", " + date;
         }
+
+    public long getDays() { return days; }
+
+    public void setDays(long days) { this.days = days; }
+
 
 }

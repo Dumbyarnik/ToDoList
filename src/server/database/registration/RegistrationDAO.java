@@ -69,7 +69,7 @@ public class RegistrationDAO implements Serializable {
                 return true;
             }
         } catch (SQLException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-           System.out.println("Theres something foul afoot");
+
            e.printStackTrace();
 
             // process sql exception

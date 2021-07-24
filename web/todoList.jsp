@@ -51,6 +51,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Status</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Days Left</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -61,6 +62,7 @@
                             <td> <c:out value="${todo.item}" /> </td>
                             <td> <c:out value="${todo.status}" /> </td>
                             <td> <c:out value="${todo.date}" /> </td>
+                            <td> <c:out value="${todo.days}" /> </td>
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />
@@ -74,11 +76,17 @@
             </table>
         </div>
     </form>
-
+<br>
+    <br>
 </div>
 <jsp:include page='footer.jsp'>
     <jsp:param name="header" value=""/>
 </jsp:include>
 </body>
+
+
+
+
+
 
 </html>
