@@ -72,6 +72,9 @@ import java.rmi.registry.Registry;
                 if (result == 1) {
                     request.setAttribute("NOTIFICATION", "User Registered Successfully!");
                 }
+                if (result==0){
+                    request.setAttribute("NOTIFICATION", "Username ist schon belegt");
+                }
 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
