@@ -12,9 +12,11 @@ public class Todo implements Serializable {
 
     public Todo(){}
 
-    public Todo(int id, String item){
+    public Todo(int id, String item, String status, Date date){
         this.id = id;
         this.item = item;
+        this.status = status;
+        this.date = date;
     }
 
     public String getStatus() {

@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+
+    <style>
+        input[type=button],
+        input[type=submit] {
+            background-color: white;
+            color: green;
+            border-radius: 5px;
+            border: 1px solid green;
+            padding: 5px 5px;
+            margin: 5px 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,31 +34,33 @@
 
 <div class="container">
 
+    <br>
     <h2>ToDo List</h2>
-    <form  action="${pageContext.request.contextPath}/todoList" method="POST">
-        <input type="submit" name="add" value="Add">
-    </form>
+    <br>
 
     <!-- Table of ToDos -->
-    <form class="col-md-6 col-md-offset-3" action="${pageContext.request.contextPath}/todoList" method="POST">
+    <form class="col-md-10 col-md-offset-4" action="${pageContext.request.contextPath}/todoList" method="POST">
         <div class="container text-left">
+            <form  action="${pageContext.request.contextPath}/todoList" method="POST">
+                <input type="submit" name="add" value="Add">
+            </form>
+            <br>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <c:forEach var="todo" items="${todoList}">
                         <tr>
-                            <td><c:out value="${todo.item}" /></td>
-                            <!--<td><a href="todo/delete?id=<c:out value='${todo.id}' />">Delete</a></td>-->
-                            <td> </td>
-                            <td> </td>
+                            <td> <c:out value="${todo.item}" /> </td>
+                            <td> <c:out value="${todo.status}" /> </td>
+                            <td> <c:out value="${todo.date}" /> </td>
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />
@@ -59,6 +74,7 @@
             </table>
         </div>
     </form>
+
 </div>
 <jsp:include page='footer.jsp'>
     <jsp:param name="header" value=""/>
