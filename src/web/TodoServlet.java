@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import static java.lang.Integer.parseInt;
 
 @WebServlet(name = "/todoList")
-public class TodoServlet extends HttpServlet {
+public class TodoServlet extends CommonServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -88,6 +88,8 @@ public class TodoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        validate(request, response);
 
         String action = request.getServletPath();
 

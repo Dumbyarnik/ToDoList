@@ -55,6 +55,8 @@ public class LoginServlet extends HttpServlet {
         try {
             int result = serverInterface.loginUser(username, password);
             if (result == 1) {
+                request.getSession().setAttribute("user_logged", username);
+
                 RequestDispatcher dispatcher = request.getRequestDispatcher("todoList");
                 dispatcher.forward(request, response);
             }
