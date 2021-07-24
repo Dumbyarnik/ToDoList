@@ -28,13 +28,13 @@
 
     <!--Todo List Servlet -->
     <servlet>
-        <servlet-name>todoList</servlet-name>
+        <servlet-name>todolist</servlet-name>
         <servlet-class>web.TodoServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>todoList</servlet-name>
-        <url-pattern>/todoList</url-pattern>
+        <servlet-name>todolist</servlet-name>
+        <url-pattern>/todolist</url-pattern>
     </servlet-mapping>
 
     <!--New Todo Servlet -->
@@ -49,7 +49,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>todoList</welcome-file>
+        <welcome-file>todolist</welcome-file>
     </welcome-file-list>
 
 

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<jsp:include page='WEB-INF/header.jsp'>
+<jsp:include page='jsp/header.jsp'>
     <jsp:param name="header" value=""/>
 </jsp:include>
 
@@ -48,7 +48,7 @@
         </form>
     </div>
 </div>
-<jsp:include page='WEB-INF/footer.jsp'>
+<jsp:include page='jsp/footer.jsp'>
     <jsp:param name="header" value=""/>
 </jsp:include>
 </body>

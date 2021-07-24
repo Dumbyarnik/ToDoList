@@ -25,7 +25,7 @@
 
 <body>
 
-<jsp:include page='WEB-INF/header.jsp'>
+<jsp:include page='jsp/header.jsp'>
   <jsp:param name="header" value=""/>
 </jsp:include>
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
@@ -51,7 +51,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
-<jsp:include page='WEB-INF/footer.jsp'>
+<jsp:include page='jsp/footer.jsp'>
   <jsp:param name="footer" value=""/>
 </jsp:include>
 </body>

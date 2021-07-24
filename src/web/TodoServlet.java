@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "/todoList")
+@WebServlet(name = "/todolist")
 public class TodoServlet extends CommonServlet {
 
     private static final long serialVersionUID = 1L;
@@ -43,44 +43,48 @@ public class TodoServlet extends CommonServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // if delete button was clicked
-        if (request.getParameter("delete") != null) {
-            // getting unique id parameter
-            String id_tmp = request.getParameter("delete_id");
-            int id = Integer.parseInt(id_tmp);
-            try {
-                deleteTodo(request, response, id);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+        if (request.getAttribute("next").equals("next")){
+            doGet(request, response);
+        } else {
+
+            // if delete button was clicked
+            if (request.getParameter("delete") != null) {
+                // getting unique id parameter
+                String id_tmp = request.getParameter("delete_id");
+                int id = Integer.parseInt(id_tmp);
+                try {
+                    deleteTodo(request, response, id);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        // the edit button was pressed
-        else if (request.getParameter("edit") != null){
-            // getting unique id parameter
-            String id_tmp = request.getParameter("edit_id");
-            int id = Integer.parseInt(id_tmp);
-            Todo todo = new Todo();
+            // the edit button was pressed
+            else if (request.getParameter("edit") != null) {
+                // getting unique id parameter
+                String id_tmp = request.getParameter("edit_id");
+                int id = Integer.parseInt(id_tmp);
+                Todo todo = new Todo();
 
-            try {
-                todo = serverInterface.getOneTodo(id);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                try {
+                    todo = serverInterface.getOneTodo(id);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                request.setAttribute("todo", todo);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
+                dispatcher.forward(request, response);
+
             }
-            
-            request.setAttribute("todo", todo);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
-            dispatcher.forward(request, response);
-
-        }
-        // if the button add was clicked
-        else if (request.getParameter("add") != null){
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
-            dispatcher.forward(request, response);
+            // if the button add was clicked
+            else if (request.getParameter("add") != null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
+                dispatcher.forward(request, response);
+            }
         }
 
     }
@@ -89,19 +93,12 @@ public class TodoServlet extends CommonServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        validate(request, response);
-
-        String action = request.getServletPath();
-
-        try {
-            switch (action) {
-
-                default:
-                    listTodo(request, response);
-                    break;
+        if (validate(request, response)){
+            try {
+                listTodo(request, response);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (ClassNotFoundException ex) {
-            throw new ServletException(ex);
         }
     }
 
@@ -112,8 +109,7 @@ public class TodoServlet extends CommonServlet {
         ArrayList<Todo> todos = serverInterface.getTodoDatabase();
         request.setAttribute("todoList", todos);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("todoList.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/jsp/todoList.jsp").forward(request, response);
     }
 
     private void deleteTodo(HttpServletRequest request, HttpServletResponse response, int id)

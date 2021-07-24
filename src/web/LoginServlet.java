@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,18 +52,18 @@ public class LoginServlet extends HttpServlet {
         loginBean.setPassword(password);
 
         // login user on the server
+        int result = 0;
         try {
-            int result = serverInterface.loginUser(username, password);
-            if (result == 1) {
-                request.getSession().setAttribute("user_logged", username);
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("todoList");
-                dispatcher.forward(request, response);
-            }
-
+            result = serverInterface.loginUser(username, password);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+
+        if (result == 1) {
+            request.getSession().setAttribute("user_logged", username);
+            request.setAttribute("next", "next");
+            request.getRequestDispatcher("todolist").forward(request, response);
         }
 
     }
