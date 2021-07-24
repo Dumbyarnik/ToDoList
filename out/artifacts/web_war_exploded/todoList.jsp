@@ -42,10 +42,9 @@
                 <tbody>
                     <c:forEach var="todo" items="${todoList}">
                         <tr>
-                            <td><c:out value="${todo.item}" /></td>
-                            <!--<td><a href="todo/delete?id=<c:out value='${todo.id}' />">Delete</a></td>-->
-                            <td> </td>
-                            <td> </td>
+                            <td> <c:out value="${todo.item}" /> </td>
+                            <td> <c:out value="${todo.status}" /> </td>
+                            <td> <c:out value="${todo.date}" /> </td>
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />

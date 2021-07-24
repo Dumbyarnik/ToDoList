@@ -31,10 +31,10 @@ public class TodoDAO {
 
                 int id = rs.getInt("ToDoID");
                 String item = rs.getString("ToDoName");
+                String status = rs.getString("Status");
+                Date date = rs.getDate("ToDoDate");
 
-                todos.add(new Todo(id, item));
-
-                //System.out.println(id + "\t\t" + item);
+                todos.add(new Todo(id, item, status, date));
             }
 
 
