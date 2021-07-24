@@ -10,7 +10,17 @@ import server.database.DatabaseConnection;
 import javax.xml.transform.Result;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class TodoDAO {
 
@@ -26,6 +36,10 @@ public class TodoDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
 
+
+
+
+
             // Going through the todo table
             while (rs.next()) {
 
@@ -33,8 +47,8 @@ public class TodoDAO {
                 String item = rs.getString("ToDoName");
                 String status = rs.getString("Status");
                 Date date = rs.getDate("ToDoDate");
-
-                todos.add(new Todo(id, item, status, date));
+                long days=calculatedaysBetween(date);
+                todos.add(new Todo(id, item, status, date,days));
             }
 
 
@@ -52,6 +66,31 @@ public class TodoDAO {
         }
         return todos;
     }
+
+    private long calculatedaysBetween(Date date) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
+        date.toLocalDate().getDayOfWeek();
+
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date currentDate = new Date(System.currentTimeMillis());
+        long diff = date.getTime() - currentDate.getTime();
+        long days= TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+        if(date.toLocalDate().equals(currentDate.toLocalDate())){
+                days=0;
+            } else{
+            days=days+1;
+            //Der naechste Tag
+            if(days==-1){
+                days=1;
+            }
+        }
+        if(days<0){
+            days=0;
+        }
+            return days;
+    }
+
 
     // deletes a todo item with an id
     public int deleteTodo(int id) throws ClassNotFoundException, SQLException {
