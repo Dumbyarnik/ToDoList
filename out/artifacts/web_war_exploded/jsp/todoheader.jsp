@@ -6,7 +6,7 @@
         </div>
 
         <ul class="navbar-nav navbar-collapse justify-content-end">
-            <li><a href="<%= request.getContextPath() %>/logout" class="nav-link">Login</a></li>
+            <li><a href="<%= request.getContextPath() %>/logout" class="nav-link">Log Out</a></li>
         </ul>
     </nav>
 </header>
