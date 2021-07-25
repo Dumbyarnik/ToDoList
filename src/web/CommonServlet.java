@@ -10,8 +10,8 @@ public class CommonServlet extends HttpServlet {
     protected boolean validate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getSession().getAttribute("user_logged") == null){
-            request.setAttribute("error", "You haven't logged in yet");
-            request.getRequestDispatcher("/userlogin").forward(request, response);
+            request.getSession().setAttribute("error", "You haven't logged in yet");
+            response.sendRedirect("/todoapp/userlogin");
             return false;
         }
 

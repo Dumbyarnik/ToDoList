@@ -61,8 +61,8 @@
                         <tr>
                             <td> <c:out value="${todo.item}" /> </td>
                             <td> <c:out value="${todo.status}" /> </td>
-                            <td> <c:out value="${todo.days}" /> </td>
                             <td> <c:out value="${todo.date}" /> </td>
+                            <td> <c:out value="${todo.days}" /> </td>
                             <td>
                                 <input type="submit" name="delete" value="Delete">
                                 <input type="hidden" name="delete_id" value="${todo.id}" />

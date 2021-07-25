@@ -8,6 +8,7 @@
     attributes of session are:
     user_logged - for understanding if the user was logged
     todo - for giving newTodo.jsp all the info for editing
+    error - for errors in login or signup
     -->
 
     <!--Register Servlet -->

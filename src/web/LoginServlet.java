@@ -36,7 +36,12 @@ public class LoginServlet extends CommonServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        if (request.getSession().getAttribute("user_logged") == null) {
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getSession().setAttribute("error", null);
+        }
+        else
+            response.sendRedirect("/todoapp/todolist");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -63,8 +68,6 @@ public class LoginServlet extends CommonServlet {
 
         if (result == 1) {
             request.getSession().setAttribute("user_logged", username);
-            //request.getSession().setAttribute("previous_page", "/login");
-            //request.getRequestDispatcher("todolist").forward(request, response);
             response.sendRedirect("/todoapp/todolist");
         } else {
             request.setAttribute("error", "Username or password are wrong");

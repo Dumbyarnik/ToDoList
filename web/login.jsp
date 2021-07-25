@@ -34,7 +34,7 @@
   <h1>Login</h1>
   <br>
   <div class="alert alert-success center" role="alert">
-    <p>${error}</p>
+    <p>${sessionScope.error}</p>
   </div>
   <br>
 
