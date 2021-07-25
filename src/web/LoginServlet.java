@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 
 
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends CommonServlet {
     private static final long serialVersionUID = 1L;
 
     // Server side
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +44,8 @@ public class LoginServlet extends HttpServlet {
         authenticate(request, response);
     }
 
-    private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void authenticate(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Login loginBean = new Login();
@@ -52,16 +53,22 @@ public class LoginServlet extends HttpServlet {
         loginBean.setPassword(password);
 
         // login user on the server
+        int result = 0;
         try {
-            int result = serverInterface.loginUser(username, password);
-            if (result == 1) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("todoList");
-                dispatcher.forward(request, response);
-            }
-
+            result = serverInterface.loginUser(username, password);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+
+        if (result == 1) {
+            request.getSession().setAttribute("user_logged", username);
+            //request.getSession().setAttribute("previous_page", "/login");
+            //request.getRequestDispatcher("todolist").forward(request, response);
+            response.sendRedirect("/todoapp/todolist");
+        } else {
+            request.setAttribute("error", "Username or password are wrong");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
     }

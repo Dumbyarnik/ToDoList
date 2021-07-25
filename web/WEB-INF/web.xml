@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <!--
+    attributes of session are:
+    user_logged - for understanding if the user was logged
+    todo - for giving newTodo.jsp all the info for editing
+    -->
+
     <!--Register Servlet -->
     <servlet>
         <servlet-name>register</servlet-name>
@@ -28,28 +34,28 @@
 
     <!--Todo List Servlet -->
     <servlet>
-        <servlet-name>todoList</servlet-name>
+        <servlet-name>todolist</servlet-name>
         <servlet-class>web.TodoServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>todoList</servlet-name>
-        <url-pattern>/todoList</url-pattern>
+        <servlet-name>todolist</servlet-name>
+        <url-pattern>/todolist</url-pattern>
     </servlet-mapping>
 
     <!--New Todo Servlet -->
     <servlet>
-        <servlet-name>newTodo</servlet-name>
+        <servlet-name>newtodo</servlet-name>
         <servlet-class>web.NewTodoServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>newTodo</servlet-name>
-        <url-pattern>/newTodo</url-pattern>
+        <servlet-name>newtodo</servlet-name>
+        <url-pattern>/newtodo</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>todoList</welcome-file>
+        <welcome-file>todolist</welcome-file>
     </welcome-file-list>
 
 
