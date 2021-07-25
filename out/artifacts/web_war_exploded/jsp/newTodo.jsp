@@ -23,7 +23,7 @@
     <h2>New Todo</h2>
     <div class="col-md-6 col-md-offset-3">
 
-        <form action="<%=request.getContextPath()%>/newTodo" method="post">
+        <form action="<%=request.getContextPath()%>/newtodo" method="post">
 
             <div class="form-group">
                 <label for="itemName">Name:</label>

@@ -42,23 +42,22 @@ import java.util.Date;
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
 
-            if (request.getSession().getAttribute("previous_page") != null){
-                doGet(request, response);}
-            else{
-                    if (request.getParameter("edit") != null) {
-                        try {
-                            updateTodo(request, response);
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (request.getParameter("new") != null) {
-                        try {
-                            addTodo(request, response);
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
+            if (request.getParameter("edit") != null) {
+                try {
+                    updateTodo(request, response);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
+            } else if (request.getParameter("new") != null) {
+                try {
+                    addTodo(request, response);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                doGet(request, response);
+            }
+
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -68,20 +67,18 @@ import java.util.Date;
         }
 
         private void addTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
-
+            // adding todo on the server
             String item = request.getParameter("itemName");
             String status = request.getParameter("status");
             String date = request.getParameter("date");
-
-            // adding todo on the server
             try {
                 int result = serverInterface.addTodoDatabase(item, status, date);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
-            response.sendRedirect("todoList");
+
+            request.getRequestDispatcher("/todolist").forward(request, response);
         }
 
         private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
