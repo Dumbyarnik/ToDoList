@@ -62,8 +62,11 @@ import java.util.Date;
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-            if (validate(request, response))
+            if (validate(request, response)) {
                 request.getRequestDispatcher("/jsp/newTodo.jsp").forward(request, response);
+                request.getSession().setAttribute("todo", null);
+            }
+
         }
 
         private void addTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
@@ -78,7 +81,7 @@ import java.util.Date;
                 e.printStackTrace();
             }
 
-            request.getRequestDispatcher("/todolist").forward(request, response);
+            response.sendRedirect("/todoapp/todolist");
         }
 
         private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
@@ -98,6 +101,6 @@ import java.util.Date;
             e.printStackTrace();
         }
 
-        response.sendRedirect("todoList");
+            response.sendRedirect("/todoapp/todolist");
     }
     }

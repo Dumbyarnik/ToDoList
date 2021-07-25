@@ -66,13 +66,12 @@ public class TodoServlet extends CommonServlet {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-                request.setAttribute("todo", todo);
-                request.getRequestDispatcher("/newtodo").forward(request, response);
+                request.getSession().setAttribute("todo", todo);
+                response.sendRedirect("/todoapp/newtodo");
             }
             // if the button add was clicked
             else if (request.getParameter("add") != null) {
-                request.getSession().setAttribute("previous_page", "/todolist");
-                request.getRequestDispatcher("/newtodo").forward(request, response);
+                response.sendRedirect("/todoapp/newtodo");
             } else {
                 doGet(request, response);
             }
@@ -100,7 +99,7 @@ public class TodoServlet extends CommonServlet {
         ArrayList<Todo> todos = serverInterface.getTodoDatabase();
         request.setAttribute("todoList", todos);
         // refreshing every 5 seconds
-        response.setIntHeader("Refresh", 5);
+        response.setIntHeader("Refresh", 3);
         request.getRequestDispatcher("/jsp/todoList.jsp").forward(request, response);
     }
 
@@ -108,7 +107,6 @@ public class TodoServlet extends CommonServlet {
             throws SQLException, IOException, ClassNotFoundException, ServletException {
         // deleteing the id
         serverInterface.deleteTodoDatabase(id);
-        //request.getRequestDispatcher("/jsp/todolist.jsp").forward(request, response);#
         this.doGet(request, response);
     }
 

@@ -28,9 +28,9 @@
             <div class="form-group">
                 <label for="itemName">Name:</label>
                 <c:choose>
-                    <c:when test="${todo != null}">
+                    <c:when test="${sessionScope.todo != null}">
                         <input type="text" class="form-control" id="itemName"
-                               value="<c:out value='${todo.item}' />" placeholder="Item Name" name="itemName" required>
+                               value="<c:out value='${sessionScope.todo.item}' />" placeholder="Item Name" name="itemName" required>
                     </c:when>
                     <c:otherwise>
                         <input type="text" class="form-control" id="itemName" placeholder="Item Name" name="itemName" required>
@@ -41,16 +41,16 @@
                     <label>Todo Status</label>
 
                     <c:choose>
-                        <c:when test="${todo != null}">
+                        <c:when test="${sessionScope.todo != null}">
                             <c:choose>
-                                <c:when test="${todo.status.equals('planned')}">
+                                <c:when test="${sessionScope.todo.status.equals('planned')}">
                                     <select class="form-control" name="status">
                                         <option selected="selected" value="planned">planned</option>
                                         <option value="in progress">in progress</option>
                                         <option value="complete">complete</option>
                                     </select>
                                 </c:when>
-                                <c:when test="${todo.status.equals('in progress')}">
+                                <c:when test="${sessionScope.todo.status.equals('in progress')}">
                                     <select class="form-control" name="status">
                                         <option value="planned">planned</option>
                                         <option selected="selected" value="in progress">in progress</option>
@@ -78,9 +78,9 @@
 
                 <label for="date">Date:</label>
                 <c:choose>
-                    <c:when test="${todo != null}">
+                    <c:when test="${sessionScope.todo != null}">
                         <input type="date" class="form-control" id="date"
-                               value="<c:out value='${todo.date}' />" placeholder="Date" name="date" required>
+                               value="<c:out value='${sessionScope.todo.date}' />" placeholder="Date" name="date" required>
                     </c:when>
                     <c:otherwise>
                         <input type="date" class="form-control" id="date" placeholder="Date" name="date" required>
@@ -89,9 +89,9 @@
             </div>
 
             <c:choose>
-                <c:when test="${todo != null}">
+                <c:when test="${sessionScope.todo != null}">
                     <input type="submit" name="edit" value="Edit">
-                    <input type="hidden" name="edit_id" value="${todo.id}" />
+                    <input type="hidden" name="edit_id" value="${sessionScope.todo.id}" />
                 </c:when>
                 <c:otherwise>
                     <input type="submit" name="new" value="Add New">

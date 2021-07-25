@@ -7,7 +7,7 @@
     <!--
     attributes of session are:
     user_logged - for understanding if the user was logged
-    previous_page - for understanding what was the previous page
+    todo - for giving newTodo.jsp all the info for editing
     -->
 
     <!--Register Servlet -->
