@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<jsp:include page='jsp/header.jsp'>
+<jsp:include page='jsp/loginheader.jsp'>
     <jsp:param name="header" value=""/>
 </jsp:include>
 

@@ -14,5 +14,6 @@
     <div class="footer-copyright text-center py-3" style="color: white">
         <b>  Verteilte Systeme </b></a>
     </div>
+    <br>
 </footer>
 <!-- Footer -->
