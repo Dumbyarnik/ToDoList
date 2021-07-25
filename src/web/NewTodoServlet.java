@@ -18,7 +18,7 @@ import java.rmi.registry.Registry;
 import java.util.Date;
 
 
-@WebServlet(name= "/newTodo")
+@WebServlet(name= "/newtodo")
     public class NewTodoServlet extends CommonServlet {
 
         private static final long serialVersionUID = 1L;
@@ -42,26 +42,29 @@ import java.util.Date;
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
 
-            if (request.getParameter("edit") != null) {
-                try {
-                    updateTodo(request, response);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+            if (request.getSession().getAttribute("previous_page") != null){
+                doGet(request, response);}
+            else{
+                    if (request.getParameter("edit") != null) {
+                        try {
+                            updateTodo(request, response);
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (request.getParameter("new") != null) {
+                        try {
+                            addTodo(request, response);
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
-            } else if (request.getParameter("new") != null){
-                try {
-                    addTodo(request, response);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-            validate(request, response);
-            response.sendRedirect("newTodo.jsp");
-
+            if (validate(request, response))
+                request.getRequestDispatcher("/jsp/newTodo.jsp").forward(request, response);
         }
 
         private void addTodo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {

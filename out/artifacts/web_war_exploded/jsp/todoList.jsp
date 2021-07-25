@@ -39,7 +39,7 @@
     <br>
 
     <!-- Table of ToDos -->
-    <form class="col-md-10 col-md-offset-4" action="${pageContext.request.contextPath}/todoList" method="POST">
+    <form class="col-md-10 col-md-offset-4" action="${pageContext.request.contextPath}/todolist" method="POST">
         <div class="container text-left">
             <form  action="${pageContext.request.contextPath}/todoList" method="POST">
                 <input type="submit" name="add" value="Add">

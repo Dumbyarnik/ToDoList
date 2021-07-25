@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 
 
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends CommonServlet {
     private static final long serialVersionUID = 1L;
 
     // Server side
@@ -44,7 +44,8 @@ public class LoginServlet extends HttpServlet {
         authenticate(request, response);
     }
 
-    private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void authenticate(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Login loginBean = new Login();
@@ -62,8 +63,11 @@ public class LoginServlet extends HttpServlet {
 
         if (result == 1) {
             request.getSession().setAttribute("user_logged", username);
-            request.setAttribute("next", "next");
+            request.getSession().setAttribute("previous_page", "/login");
             request.getRequestDispatcher("todolist").forward(request, response);
+        } else {
+            request.setAttribute("error", "Username or password are wrong");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
     }

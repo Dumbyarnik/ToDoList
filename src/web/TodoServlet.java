@@ -6,7 +6,6 @@ import server.database.todolist.Todo;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,8 +15,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static java.lang.Integer.parseInt;
 
 @WebServlet(name = "/todolist")
 public class TodoServlet extends CommonServlet {
@@ -43,10 +40,10 @@ public class TodoServlet extends CommonServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getAttribute("next").equals("next")){
+        // if this page was visited from previous one, then we have to
+        if (request.getSession().getAttribute("previous_page") != null){
             doGet(request, response);
         } else {
-
             // if delete button was clicked
             if (request.getParameter("delete") != null) {
                 // getting unique id parameter
@@ -76,14 +73,13 @@ public class TodoServlet extends CommonServlet {
                 }
 
                 request.setAttribute("todo", todo);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
-                dispatcher.forward(request, response);
+                request.getRequestDispatcher("newTodo.jsp").forward(request, response);
 
             }
             // if the button add was clicked
             else if (request.getParameter("add") != null) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("newTodo.jsp");
-                dispatcher.forward(request, response);
+                request.getSession().setAttribute("previous_page", "/todolist");
+                request.getRequestDispatcher("/newtodo").forward(request, response);
             }
         }
 
@@ -99,6 +95,8 @@ public class TodoServlet extends CommonServlet {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+
+            request.getSession().setAttribute("previous_page", null);
         }
     }
 
@@ -108,7 +106,6 @@ public class TodoServlet extends CommonServlet {
         // Setting list to the attribute in jsp
         ArrayList<Todo> todos = serverInterface.getTodoDatabase();
         request.setAttribute("todoList", todos);
-
         request.getRequestDispatcher("/jsp/todoList.jsp").forward(request, response);
     }
 
@@ -116,7 +113,6 @@ public class TodoServlet extends CommonServlet {
             throws SQLException, IOException, ClassNotFoundException, ServletException {
         // deleteing the id
         serverInterface.deleteTodoDatabase(id);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("todoList.jsp");
         dispatcher.forward(request, response);
     }
