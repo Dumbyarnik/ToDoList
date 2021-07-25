@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<jsp:include page='jsp/header.jsp'>
+<jsp:include page='jsp/loginheader.jsp'>
     <jsp:param name="header" value=""/>
 </jsp:include>
 
@@ -22,7 +22,7 @@
     <h2>User Register Form</h2>
     <div class="col-md-6 col-md-offset-3">
         <div class="alert alert-success center" role="alert">
-            <p>${NOTIFICATION}</p>
+            <p>${sessionScope.error}</p>
         </div>
 
         <form action="<%=request.getContextPath()%>/register" method="post">

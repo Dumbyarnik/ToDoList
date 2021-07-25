@@ -25,7 +25,7 @@
 
 <body>
 
-<jsp:include page='jsp/header.jsp'>
+<jsp:include page='jsp/loginheader.jsp'>
   <jsp:param name="header" value=""/>
 </jsp:include>
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
@@ -34,7 +34,7 @@
   <h1>Login</h1>
   <br>
   <div class="alert alert-success center" role="alert">
-    <p>${error}</p>
+    <p>${sessionScope.error}</p>
   </div>
   <br>
 

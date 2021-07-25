@@ -72,11 +72,10 @@ public class TodoServlet extends CommonServlet {
             // if the button add was clicked
             else if (request.getParameter("add") != null) {
                 response.sendRedirect("/todoapp/newtodo");
-            } else {
+            }
+            else {
                 doGet(request, response);
             }
-
-
     }
 
     @Override

@@ -26,7 +26,6 @@ import java.rmi.registry.Registry;
         ServerInterface serverInterface;
 
         public void init() {
-
             // initializing server
             try {
                 registry = LocateRegistry.getRegistry();
@@ -34,7 +33,6 @@ import java.rmi.registry.Registry;
             } catch (NotBoundException | RemoteException ex) {
                 ex.printStackTrace();
             }
-
         }
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,11 +47,17 @@ import java.rmi.registry.Registry;
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-            response.sendRedirect("register.jsp");
+            if (request.getSession().getAttribute("user_logged") == null) {
+                request.getRequestDispatcher("/register.jsp").forward(request, response);
+                request.getSession().setAttribute("error", null);
+            }
+            else
+                response.sendRedirect("/todoapp/todolist");
 
         }
 
-        private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ClassNotFoundException {
+        private void register(HttpServletRequest request, HttpServletResponse response)
+                throws IOException, ServletException, ClassNotFoundException {
 
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
@@ -66,22 +70,21 @@ import java.rmi.registry.Registry;
             user.setUserName(username);
             user.setPassword(password);
 
+            int result = 0;
+
             // subscribing user on the server
             try {
-                int result = serverInterface.subscribeUserDatabase(firstName, lastName, username, password);
-                if (result == 1) {
-                    request.setAttribute("NOTIFICATION", "User Registered Successfully!");
-                }
-                if (result==0){
-                    request.setAttribute("NOTIFICATION", "Username ist schon belegt");
-                }
-
+                result = serverInterface.subscribeUserDatabase(firstName, lastName, username, password);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
-            dispatcher.forward(request, response);
+            if (result==0){
+                request.getSession().setAttribute("error", "Username ist schon belegt");
+                response.sendRedirect("/todoapp/register");
+            } else {
+                response.sendRedirect("/todoapp/login");
+            }
         }
     }
