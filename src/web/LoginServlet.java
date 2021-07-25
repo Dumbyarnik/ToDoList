@@ -40,8 +40,12 @@ public class LoginServlet extends CommonServlet {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             request.getSession().setAttribute("error", null);
         }
-        else
-            response.sendRedirect("/todoapp/todolist");
+        else{
+            if (request.getParameter("action").equals("logout")){
+                this.logout(request, response);
+            } else
+                response.sendRedirect("/todoapp/todolist");
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

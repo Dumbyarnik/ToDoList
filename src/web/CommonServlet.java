@@ -14,7 +14,13 @@ public class CommonServlet extends HttpServlet {
             response.sendRedirect("/todoapp/userlogin");
             return false;
         }
-
         return true;
+    }
+
+    protected void logout (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getSession().setAttribute("user_logged", null);
+        request.getSession().setAttribute("error", "You have logged out");
+        response.sendRedirect("/todoapp/userlogin");
     }
 }
