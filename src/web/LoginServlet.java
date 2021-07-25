@@ -63,8 +63,9 @@ public class LoginServlet extends CommonServlet {
 
         if (result == 1) {
             request.getSession().setAttribute("user_logged", username);
-            request.getSession().setAttribute("previous_page", "/login");
-            request.getRequestDispatcher("todolist").forward(request, response);
+            //request.getSession().setAttribute("previous_page", "/login");
+            //request.getRequestDispatcher("todolist").forward(request, response);
+            response.sendRedirect("/web_war_exploded/todolist");
         } else {
             request.setAttribute("error", "Username or password are wrong");
             request.getRequestDispatcher("/login.jsp").forward(request, response);

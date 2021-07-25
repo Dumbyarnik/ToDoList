@@ -99,6 +99,8 @@ public class TodoServlet extends CommonServlet {
         // Setting list to the attribute in jsp
         ArrayList<Todo> todos = serverInterface.getTodoDatabase();
         request.setAttribute("todoList", todos);
+        // refreshing every 5 seconds
+        response.setIntHeader("Refresh", 5);
         request.getRequestDispatcher("/jsp/todoList.jsp").forward(request, response);
     }
 
