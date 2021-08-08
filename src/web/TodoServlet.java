@@ -83,10 +83,12 @@ public class TodoServlet extends CommonServlet {
             throws ServletException, IOException {
 
         if (validate(request, response)){
-            try {
-                listTodo(request, response);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            if (validateRoom(request, response)) {
+                try {
+                    listTodo(request, response);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

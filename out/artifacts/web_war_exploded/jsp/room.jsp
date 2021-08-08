@@ -25,7 +25,7 @@
 
 <body>
 
-<jsp:include page='todoheader.jsp'>
+<jsp:include page='roomheader.jsp'>
     <jsp:param name="header" value=""/>
 </jsp:include>
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
@@ -41,7 +41,7 @@
             <input type="text" class="form-control" placeholder="Room" name="room" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Choose or create</button>
+        <button type="submit" class="btn btn-primary">Choose or create a room</button>
     </form>
 </div>
 <jsp:include page='footer.jsp'>

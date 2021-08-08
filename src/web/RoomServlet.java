@@ -33,7 +33,15 @@ public class RoomServlet extends CommonServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (validate(request, response)) {
-            request.getRequestDispatcher("/jsp/room.jsp").forward(request, response);
+            if (request.getSession().getAttribute("room") == null){
+                request.getRequestDispatcher("jsp/room.jsp").forward(request, response);
+            } else {
+                if (request.getParameter("action").equals("changeRoom")) {
+                    this.changeRoom(request, response);
+                } else {
+                    response.sendRedirect("/todoapp/todolist");
+                }
+            }
         }
     }
 

@@ -63,8 +63,10 @@ import java.util.Date;
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             if (validate(request, response)) {
-                request.getRequestDispatcher("/jsp/newTodo.jsp").forward(request, response);
-                request.getSession().setAttribute("todo", null);
+                if (validateRoom(request, response)) {
+                    request.getRequestDispatcher("/jsp/newTodo.jsp").forward(request, response);
+                    request.getSession().setAttribute("todo", null);
+                }
             }
 
         }
