@@ -72,7 +72,7 @@ public class LoginServlet extends CommonServlet {
 
         if (result == 1) {
             request.getSession().setAttribute("user_logged", username);
-            response.sendRedirect("/todoapp/todolist");
+            response.sendRedirect("/todoapp/room");
         } else {
             request.setAttribute("error", "Username or password are wrong");
             request.getRequestDispatcher("/login.jsp").forward(request, response);

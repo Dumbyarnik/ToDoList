@@ -31,14 +31,10 @@
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
 
     <br>
-    <h1>Login</h1>
-    <br>
-    <div class="alert alert-success center" role="alert">
-        <p>${sessionScope.error}</p>
-    </div>
+    <h1>Room</h1>
     <br>
 
-    <form action="<%=request.getContextPath()%>/login" method="post">
+    <form action="<%=request.getContextPath()%>/room" method="post">
 
         <div class="form-group">
             <label>Room:</label>
