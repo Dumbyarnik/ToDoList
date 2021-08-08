@@ -36,10 +36,6 @@ public class TodoDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
 
-
-
-
-
             // Going through the todo table
             while (rs.next()) {
 
@@ -50,7 +46,6 @@ public class TodoDAO {
                 long days=calculatedaysBetween(date);
                 todos.add(new Todo(id, item, status, date,days));
             }
-
 
         } catch (SQLException e) {
             // process sql exception
@@ -125,7 +120,7 @@ public class TodoDAO {
     }
 
     // adds a new todo item
-    public int addTodo(String item, String status, String date) throws ClassNotFoundException, SQLException {
+    public int addTodo(String item, String status, String date, String room) throws ClassNotFoundException, SQLException {
         int result = 0;
 
         long now = System.currentTimeMillis();
@@ -134,10 +129,10 @@ public class TodoDAO {
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("INSERT INTO todos (ToDoName, Status, ToDoDate)\n" +
-                             "VALUES ('" + item + "','" + status + "','" + date +"');")) {
+                     .prepareStatement("INSERT INTO todos (ToDoName, Status, ToDoDate, Room)\n" +
+                             "VALUES ('" + item + "','" + status + "','" + date
+                             + "','" + room +"');")) {
             result = preparedStatement.executeUpdate();
-
 
         } catch (InvocationTargetException invocationTargetException) {
             invocationTargetException.printStackTrace();

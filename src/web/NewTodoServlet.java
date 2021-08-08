@@ -76,8 +76,9 @@ import java.util.Date;
             String item = request.getParameter("itemName");
             String status = request.getParameter("status");
             String date = request.getParameter("date");
+            String room = request.getSession().getAttribute("room").toString();
             try {
-                int result = serverInterface.addTodoDatabase(item, status, date);
+                int result = serverInterface.addTodoDatabase(item, status, date, room);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
