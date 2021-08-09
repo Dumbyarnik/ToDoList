@@ -8,7 +8,7 @@
         <ul class="navbar-nav navbar-collapse justify-content-end">
             <li><a href="<%= request.getContextPath() %>/room?action=${"changeRoom"}"
                    class="nav-link">Change Room</a></li>
-            <li><a href="<%= request.getContextPath() %>/login?action=${"logout"}"
+            <li><a href="<%= request.getContextPath() %>/userlogin?action=${"logout"}"
                    class="nav-link">Log Out</a></li>
         </ul>
     </nav>

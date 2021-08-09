@@ -1,8 +1,11 @@
 package web;
+/*
+ * Class created on 23.08.2021
+ * Class is used to control todos screen
+ * */
 
 import server.ServerInterface;
 import server.database.todolist.Todo;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +22,6 @@ import java.util.ArrayList;
 public class TodoServlet extends CommonServlet {
 
     private static final long serialVersionUID = 1L;
-
     // Server side
     Registry registry = null;
     ServerInterface serverInterface;
@@ -44,6 +46,7 @@ public class TodoServlet extends CommonServlet {
                 // getting unique id parameter
                 String id_tmp = request.getParameter("delete_id");
                 int id = Integer.parseInt(id_tmp);
+                // deleting todo in database
                 try {
                     deleteTodo(request, response, id);
                 } catch (SQLException throwables) {
@@ -66,6 +69,8 @@ public class TodoServlet extends CommonServlet {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                // setting todo to the attribute session
+                // to retrieve information later
                 request.getSession().setAttribute("todo", todo);
                 response.sendRedirect("/todoapp/newtodo");
             }
@@ -81,9 +86,11 @@ public class TodoServlet extends CommonServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        // if user logged in
         if (validate(request, response)){
+            // if user chose a room
             if (validateRoom(request, response)) {
+                // print all todos
                 try {
                     listTodo(request, response);
                 } catch (ClassNotFoundException e) {
@@ -93,12 +100,8 @@ public class TodoServlet extends CommonServlet {
         }
     }
 
-
     private void listTodo(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, ServletException {
-
-        System.out.println(request.getSession().getAttribute("room").toString());
-
         // Setting list to the attribute in jsp
         ArrayList<Todo> todos = serverInterface.getTodoDatabase(
                 request.getSession().getAttribute("room").toString());

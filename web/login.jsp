@@ -33,12 +33,13 @@
   <br>
   <h1>Login</h1>
   <br>
+  <!-- placeholder for error -->
   <div class="alert alert-success center" role="alert">
     <p>${sessionScope.error}</p>
   </div>
   <br>
 
-  <form action="<%=request.getContextPath()%>/login" method="post">
+  <form action="<%=request.getContextPath()%>/userlogin" method="post">
 
     <div class="form-group">
       <label for="username">User Name:</label> <input type="text" class="form-control" id="username" placeholder="User Name" name="username" required>

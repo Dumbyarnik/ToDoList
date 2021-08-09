@@ -1,4 +1,8 @@
 package server.database.todolist;
+/*
+ * Class created on 30.07.2021
+ * Class is used to store information about todo
+ * */
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,9 +15,9 @@ public class Todo implements Serializable {
         private String item;
         private long days;
 
-    public Todo(){}
+        public Todo(){}
 
-    public Todo(int id, String item, String status, Date date,long days){
+        public Todo(int id, String item, String status, Date date,long days){
         this.id = id;
         this.item = item;
         this.status = status;
@@ -21,46 +25,39 @@ public class Todo implements Serializable {
         this.days=days;
     }
 
-    public String getStatus() {
+        public String getStatus() {
         return status;
     }
-
-    public void setStatus(String status) {
+        public void setStatus(String status) {
         this.status = status;
     }
 
-    public Date getDate() {
+        public Date getDate() {
         return date;
     }
-
-    public void setDate(Date date) {
+        public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getId() {
+        public int getId() {
             return id;
         }
-
-    public void setId(int id) {
+        public void setId(int id) {
             this.id = id;
         }
 
-    public String getItem() {
+        public String getItem() {
             return item;
         }
-
-    public void setItem(String item) {
+        public void setItem(String item) {
             this.item = item;
         }
 
-    @Override
-    public String toString(){
+        public long getDays() { return days; }
+        public void setDays(long days) { this.days = days; }
+
+        @Override
+        public String toString(){
             return id + ", " + item + ", " + status + ", " + date;
         }
-
-    public long getDays() { return days; }
-
-    public void setDays(long days) { this.days = days; }
-
-
 }

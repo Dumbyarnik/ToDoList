@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>Insert title here</title>
+    <title>Register</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -21,6 +21,8 @@
 
     <h2>User Register Form</h2>
     <div class="col-md-6 col-md-offset-3">
+
+        <!-- placeholder for error -->
         <div class="alert alert-success center" role="alert">
             <p>${sessionScope.error}</p>
         </div>
