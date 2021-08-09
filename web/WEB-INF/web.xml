@@ -8,6 +8,7 @@
     attributes of session are:
     user_logged - for understanding if the user was logged
     todo - for giving newTodo.jsp all the info for editing
+    room - name of the room
     error - for errors in login or signup
     -->
 
@@ -69,7 +70,5 @@
     <welcome-file-list>
         <welcome-file>userlogin</welcome-file>
     </welcome-file-list>
-
-
 
 </web-app>

@@ -21,6 +21,8 @@
 
     <h2>User Register Form</h2>
     <div class="col-md-6 col-md-offset-3">
+
+        <!-- placeholder for error -->
         <div class="alert alert-success center" role="alert">
             <p>${sessionScope.error}</p>
         </div>

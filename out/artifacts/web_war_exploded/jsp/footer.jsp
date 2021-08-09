@@ -12,8 +12,8 @@
 <footer class="footer font-small black">
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3" style="color: white">
-        <b>  Verteilte Systeme </b></a>
+        <b> Verteilte Systeme </b></a>
     </div>
-    <br>
+    <br><br><br>
 </footer>
 <!-- Footer -->

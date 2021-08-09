@@ -33,6 +33,7 @@
   <br>
   <h1>Login</h1>
   <br>
+  <!-- placeholder for error -->
   <div class="alert alert-success center" role="alert">
     <p>${sessionScope.error}</p>
   </div>
