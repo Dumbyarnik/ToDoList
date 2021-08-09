@@ -17,10 +17,26 @@ public class CommonServlet extends HttpServlet {
         return true;
     }
 
+    protected boolean validateRoom(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (request.getSession().getAttribute("room") == null){
+            response.sendRedirect("/todoapp/room");
+            return false;
+        }
+        return true;
+    }
+
     protected void logout (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getSession().setAttribute("user_logged", null);
+        request.getSession().setAttribute("room", null);
         request.getSession().setAttribute("error", "You have logged out");
         response.sendRedirect("/todoapp/userlogin");
+    }
+
+    protected void changeRoom (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getSession().setAttribute("room", null);
+        response.sendRedirect("/todoapp/room");
     }
 }

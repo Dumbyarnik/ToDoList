@@ -73,10 +73,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
-    public ArrayList<Todo> getTodoDatabase() throws RemoteException, ClassNotFoundException {
+    public ArrayList<Todo> getTodoDatabase(String room) throws RemoteException, ClassNotFoundException {
 
         TodoDAO dao = new TodoDAO();
-        return dao.getTodo();
+        return dao.getTodo(room);
     }
 
     @Override
@@ -90,9 +90,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
-    public int addTodoDatabase(String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException {
+    public int addTodoDatabase(String item, String status, String date, String room) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
-        int result = todoDAO.addTodo(item, status, date);
+        int result = todoDAO.addTodo(item, status, date, room);
         return result;
     }
 

@@ -33,6 +33,17 @@
         <url-pattern>/userlogin</url-pattern>
     </servlet-mapping>
 
+    <!--Room Servlet -->
+    <servlet>
+        <servlet-name>room</servlet-name>
+        <servlet-class>web.RoomServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>room</servlet-name>
+        <url-pattern>/room</url-pattern>
+    </servlet-mapping>
+
     <!--Todo List Servlet -->
     <servlet>
         <servlet-name>todolist</servlet-name>
@@ -56,7 +67,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>todolist</welcome-file>
+        <welcome-file>login</welcome-file>
     </welcome-file-list>
 
 
