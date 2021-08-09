@@ -74,8 +74,8 @@ public class LoginServlet extends CommonServlet {
             request.getSession().setAttribute("user_logged", username);
             response.sendRedirect("/todoapp/room");
         } else {
-            request.setAttribute("error", "Username or password are wrong");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getSession().setAttribute("error", "Username or password are wrong");
+            response.sendRedirect("/todoapp/login");
         }
 
     }
