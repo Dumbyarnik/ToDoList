@@ -4,10 +4,7 @@ package server;
  * Class is used to manage the server side of the application
  * */
 
-import broadcast.BroadcastInterface;
-import client.ClientInterface;
 import server.database.todolist.Todo;
-
 import java.io.NotSerializableException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

@@ -1,12 +1,12 @@
 package web;
+/*
+ * Class created on 23.07.2021
+ * Class is used to control login screen
+ * */
 
 import server.ServerInterface;
-import server.database.login.Login;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 
-@WebServlet("/login")
+@WebServlet(name= "/userlogin")
 public class LoginServlet extends CommonServlet {
     private static final long serialVersionUID = 1L;
 
@@ -36,15 +36,23 @@ public class LoginServlet extends CommonServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // if user is not logged -> login screen
         if (request.getSession().getAttribute("user_logged") == null) {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             request.getSession().setAttribute("error", null);
         }
-        else{
+        // if button logout was pressed
+        else if (request.getParameter("action") != null) {
             if (request.getParameter("action").equals("logout")){
                 this.logout(request, response);
-            } else
-                response.sendRedirect("/todoapp/todolist");
+            }
+        }
+        // if user logged in, but didn't change a room
+        else if (request.getSession().getAttribute("room") == null) {
+            response.sendRedirect("/todoapp/room");
+        }
+        else {
+            response.sendRedirect("/todoapp/todolist");
         }
     }
 
@@ -54,12 +62,10 @@ public class LoginServlet extends CommonServlet {
     }
 
     private void authenticate(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException {
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Login loginBean = new Login();
-        loginBean.setUsername(username);
-        loginBean.setPassword(password);
 
         // login user on the server
         int result = 0;
@@ -69,14 +75,15 @@ public class LoginServlet extends CommonServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+         // if user was logged
         if (result == 1) {
             request.getSession().setAttribute("user_logged", username);
             response.sendRedirect("/todoapp/room");
-        } else {
-            request.getSession().setAttribute("error", "Username or password are wrong");
-            response.sendRedirect("/todoapp/login");
         }
-
+        // if username or password were wrong
+        else {
+            request.getSession().setAttribute("error", "Username or password are wrong");
+            response.sendRedirect("/todoapp/userlogin");
+        }
     }
 }
