@@ -96,8 +96,12 @@ public class TodoServlet extends CommonServlet {
 
     private void listTodo(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, ServletException {
+
+        System.out.println(request.getSession().getAttribute("room").toString());
+
         // Setting list to the attribute in jsp
-        ArrayList<Todo> todos = serverInterface.getTodoDatabase();
+        ArrayList<Todo> todos = serverInterface.getTodoDatabase(
+                request.getSession().getAttribute("room").toString());
         request.setAttribute("todoList", todos);
         // refreshing every 5 seconds
         response.setIntHeader("Refresh", 3);

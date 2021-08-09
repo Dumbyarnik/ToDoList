@@ -31,13 +31,12 @@
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
 
     <br>
-    <h1>Room</h1>
+    <h1>Choose or create a room</h1>
     <br>
 
     <form action="<%=request.getContextPath()%>/room" method="post">
 
         <div class="form-group">
-            <label>Room:</label>
             <input type="text" class="form-control" placeholder="Room" name="room" required>
         </div>
 

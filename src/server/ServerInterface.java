@@ -16,7 +16,7 @@ public interface ServerInterface extends Remote{
     int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException;
     int loginUser(String username, String password) throws RemoteException;
 
-    ArrayList<Todo> getTodoDatabase() throws RemoteException, ClassNotFoundException;
+    ArrayList<Todo> getTodoDatabase(String room) throws RemoteException, ClassNotFoundException;
     Todo getOneTodo(int id) throws RemoteException, ClassNotFoundException, SQLException;
     int addTodoDatabase(String item, String status, String date, String room) throws RemoteException, ClassNotFoundException, SQLException;
     int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException;

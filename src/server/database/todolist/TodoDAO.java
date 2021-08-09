@@ -6,33 +6,25 @@ package server.database.todolist;
 * */
 
 import server.database.DatabaseConnection;
-
-import javax.xml.transform.Result;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class TodoDAO {
 
     // returns the list of all todo items
-    public ArrayList<Todo> getTodo() throws ClassNotFoundException {
+    public ArrayList<Todo> getTodo(String room) throws ClassNotFoundException {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("select * from todos ")) {
+                     .prepareStatement("select * from todos " +
+                             "where Room = " + "'" + room + "'")) {
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -85,7 +77,6 @@ public class TodoDAO {
         }
             return days;
     }
-
 
     // deletes a todo item with an id
     public int deleteTodo(int id) throws ClassNotFoundException, SQLException {
@@ -154,7 +145,7 @@ public class TodoDAO {
 
     }
 
-    // adds a new todo item
+    // gets one todo item (for editing)
     public Todo getOneTodo(int id) throws ClassNotFoundException, SQLException {
         int result = 0;
 
