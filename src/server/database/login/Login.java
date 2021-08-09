@@ -1,5 +1,8 @@
 package server.database.login;
-
+/*
+ * Class created on 30.07.2021
+ * Class is used store information about login
+ * */
 
 import java.io.Serializable;
 

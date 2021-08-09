@@ -1,4 +1,8 @@
 package server;
+/*
+ * Class created on 10.07.2021
+ * Class is used to manage the server side of the application
+ * */
 
 import broadcast.BroadcastInterface;
 import client.ClientInterface;
@@ -12,7 +16,6 @@ import java.util.ArrayList;
 
 public interface ServerInterface extends Remote{
 
-    // Ready Database Functionality
     int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException;
     int loginUser(String username, String password) throws RemoteException;
 
@@ -21,16 +24,4 @@ public interface ServerInterface extends Remote{
     int addTodoDatabase(String item, String status, String date, String room) throws RemoteException, ClassNotFoundException, SQLException;
     int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException;
     int updateTodoDatabase(int id, String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException;
-
-
-    BroadcastInterface subscribeUser (String username, ClientInterface handle) throws RemoteException;
-    boolean unsubscribeUser (String username) throws RemoteException;
-
-    // To Do Functionality
-    ArrayList<String> getTodo() throws RemoteException;
-    boolean addTodo(String item) throws RemoteException;
-    boolean deleteTodo(int item) throws RemoteException;
-    boolean updateTodo(int i, String s) throws RemoteException;
-
-
 }

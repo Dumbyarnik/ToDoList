@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TodoDAO {
 
-    // returns the list of all todo items
+    // returns the list of all todo items in the room
     public ArrayList<Todo> getTodo(String room) throws ClassNotFoundException {
 
         ArrayList<Todo> todos = new ArrayList<>();
@@ -30,7 +30,6 @@ public class TodoDAO {
 
             // Going through the todo table
             while (rs.next()) {
-
                 int id = rs.getInt("ToDoID");
                 String item = rs.getString("ToDoName");
                 String status = rs.getString("Status");
@@ -53,7 +52,6 @@ public class TodoDAO {
         }
         return todos;
     }
-
     private long calculatedaysBetween(Date date) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
         date.toLocalDate().getDayOfWeek();
@@ -80,17 +78,15 @@ public class TodoDAO {
 
     // deletes a todo item with an id
     public int deleteTodo(int id) throws ClassNotFoundException, SQLException {
-        int status = 0;
 
+        int status = 0;
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("DELETE FROM todos WHERE ToDoID=+"+ id+"")) {
             status = preparedStatement.executeUpdate();
-
-
-            } catch (InvocationTargetException invocationTargetException) {
+        } catch (InvocationTargetException invocationTargetException) {
             invocationTargetException.printStackTrace();
         } catch (NoSuchMethodException noSuchMethodException) {
             noSuchMethodException.printStackTrace();
@@ -100,29 +96,20 @@ public class TodoDAO {
             illegalAccessException.printStackTrace();
         }
 
-        if(status == 1){
-                System.out.println("Todo was deleted");
-        } else {
-            System.out.println("Todo was not deleted");
-        }
-
         return status;
-
     }
 
     // adds a new todo item
     public int addTodo(String item, String status, String date, String room) throws ClassNotFoundException, SQLException {
+
         int result = 0;
-
         long now = System.currentTimeMillis();
-
-        Date sqlDate = new Date(now);
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO todos (ToDoName, Status, ToDoDate, Room)\n" +
                              "VALUES ('" + item + "','" + status + "','" + date
-                             + "','" + room +"');")) {
+                             + "','" + room + "');")) {
             result = preparedStatement.executeUpdate();
 
         } catch (InvocationTargetException invocationTargetException) {
@@ -135,19 +122,11 @@ public class TodoDAO {
             illegalAccessException.printStackTrace();
         }
 
-        if(result == 1){
-            System.out.println("Todo was added");
-        } else {
-            System.out.println("Todo was not added");
-        }
-
         return result;
-
     }
 
     // gets one todo item (for editing)
     public Todo getOneTodo(int id) throws ClassNotFoundException, SQLException {
-        int result = 0;
 
         Todo tmp = new Todo();
 
@@ -173,14 +152,7 @@ public class TodoDAO {
             illegalAccessException.printStackTrace();
         }
 
-        if(result == 1){
-            System.out.println("We got todo");
-        } else {
-            System.out.println("We didnt get todo");
-        }
-
         return tmp;
-
     }
 
     // updates a todo item
