@@ -6,6 +6,8 @@ package web;
  * which all servlets need
  * */
 
+import client.Client;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +41,12 @@ public class CommonServlet extends HttpServlet {
     // method for logout button
     protected void logout (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // unsubscribing the client
+        Client client = (Client) request.getSession().getAttribute("client");
+        client.unsubscribeClient();
+
         // setting attributes to null and go to login screen
+        request.getSession().setAttribute("client", null);
         request.getSession().setAttribute("user_logged", null);
         request.getSession().setAttribute("room", null);
         request.getSession().setAttribute("error", "You have logged out");
@@ -49,7 +56,12 @@ public class CommonServlet extends HttpServlet {
     // method for change room button
     protected void changeRoom (HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        // setting attribute to null and go to room screen
+        // unsubscribing the client
+        Client client = (Client) request.getSession().getAttribute("client");
+        client.unsubscribeClient();
+
+        // setting attributes to null and go to room screen
+        request.getSession().setAttribute("client", null);
         request.getSession().setAttribute("room", null);
         response.sendRedirect("/todoapp/room");
     }

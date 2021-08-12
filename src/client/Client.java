@@ -1,6 +1,9 @@
 package client;
+/*
+ * Class created on 10.08.2021
+ * Class is used to create subscription system for client
+ * */
 
-import server.Server;
 import server.ServerInterface;
 
 import java.rmi.NotBoundException;
@@ -22,6 +25,11 @@ public class Client implements  ClientInterface{
     public void startClient() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry();
         serverInterface = (ServerInterface) registry.lookup("ChatServer");
+    }
+
+    @Override
+    public void unsubscribeClient() throws RemoteException {
+        serverInterface.unsubscribeClient(this);
     }
 
     @Override

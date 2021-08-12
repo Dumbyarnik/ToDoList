@@ -44,11 +44,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
-    public void subscribeClient(ClientInterface clientInterface) throws RemoteException {
-        clients.add(clientInterface);
-    }
-
-    @Override
     public int loginUser(String username, String password) throws RemoteException {
         try {
             LoginDAO logDAO = new LoginDAO();
@@ -59,6 +54,22 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void subscribeClient(ClientInterface clientInterface) throws RemoteException {
+        clients.add(clientInterface);
+        System.out.println(clientInterface.getUsername() + " was subscribed");
+    }
+
+    @Override
+    public void unsubscribeClient(ClientInterface clientInterface) throws RemoteException {
+        clients.remove(clientInterface);
+        System.out.println(clientInterface.getUsername() + " was removed");
+
+        System.out.println("Remained clients are: ");
+        for (ClientInterface tmp : clients)
+            System.out.println(tmp.getUsername());
     }
 
     @Override

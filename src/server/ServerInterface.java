@@ -15,8 +15,11 @@ import java.util.ArrayList;
 public interface ServerInterface extends Remote{
 
     int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException;
-    void subscribeClient(ClientInterface clientInterface) throws RemoteException;
     int loginUser(String username, String password) throws RemoteException;
+
+    // client - server part
+    void subscribeClient(ClientInterface clientInterface) throws RemoteException;
+    void unsubscribeClient(ClientInterface clientInterface) throws RemoteException;
 
     ArrayList<Todo> getTodoDatabase(String room) throws RemoteException, ClassNotFoundException;
     Todo getOneTodo(int id) throws RemoteException, ClassNotFoundException, SQLException;
