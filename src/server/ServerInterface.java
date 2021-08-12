@@ -24,6 +24,6 @@ public interface ServerInterface extends Remote{
     ArrayList<Todo> getTodoDatabase(String room) throws RemoteException, ClassNotFoundException;
     Todo getOneTodo(int id) throws RemoteException, ClassNotFoundException, SQLException;
     int addTodoDatabase(String item, String status, String date, String room) throws RemoteException, ClassNotFoundException, SQLException;
-    int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException;
+    int deleteTodoDatabase(int id, String room, String username) throws RemoteException, ClassNotFoundException, SQLException;
     int updateTodoDatabase(int id, String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException;
 }

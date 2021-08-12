@@ -9,6 +9,8 @@ import java.rmi.RemoteException;
 
 public interface ClientInterface extends Remote {
     void unsubscribeClient() throws RemoteException;
+    // method for adding update to ArrayList on the client
+    void addUpdate(String update) throws RemoteException;
 
     String getRoom() throws RemoteException;
     void setRoom(String room) throws RemoteException;

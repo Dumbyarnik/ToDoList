@@ -114,8 +114,10 @@ public class TodoServlet extends CommonServlet {
 
     private void deleteTodo(HttpServletRequest request, HttpServletResponse response, int id)
             throws SQLException, IOException, ClassNotFoundException, ServletException {
-        // deleteing the id
-        serverInterface.deleteTodoDatabase(id);
+        // deleteing the id and updating all clients in the room
+        serverInterface.deleteTodoDatabase(id,
+                request.getSession().getAttribute("room").toString(),
+                request.getSession().getAttribute("user_logged").toString());
         this.doGet(request, response);
     }
 

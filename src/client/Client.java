@@ -11,20 +11,34 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 public class Client implements  ClientInterface{
     private ServerInterface serverInterface;
+    // list for showing updates on the client (subscribe system)
+    ArrayList<String> updates;
     String room;
     String username;
 
 
     public Client() throws RemoteException {
         UnicastRemoteObject.exportObject(this, 0);
+        updates = new ArrayList<String>();
     }
 
     public void startClient() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry();
         serverInterface = (ServerInterface) registry.lookup("ChatServer");
+    }
+
+    public ArrayList<String> getUpdates(){
+        return  updates;
+    }
+
+    @Override
+    public void addUpdate(String update){
+        updates.add(update);
+        System.out.println(update);
     }
 
     @Override

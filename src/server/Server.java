@@ -29,6 +29,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         clients = new ArrayList<>();
     }
 
+    private void updateClients(String room, String update) throws RemoteException {
+        for (ClientInterface client : clients){
+            // if it is the right room, then we update all clients there
+            if (client.getRoom().equals(room)){
+                client.addUpdate(update);
+            }
+        }
+    }
+
     @Override
     public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException {
 
@@ -94,9 +103,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
-    public int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException {
+    public int deleteTodoDatabase(int id, String room, String username) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
+
+        String name = todoDAO.getTodoName(id);
         int status = todoDAO.deleteTodo(id);
+
+        String update = username + " deleted " + name;
+        updateClients(room, update);
+
         return status;
     }
 
