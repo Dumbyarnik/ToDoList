@@ -4,6 +4,7 @@ package server;
  * Class is used to manage the server side of the application
  * */
 
+import client.ClientInterface;
 import server.database.todolist.Todo;
 import java.io.NotSerializableException;
 import java.rmi.Remote;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public interface ServerInterface extends Remote{
 
     int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException;
+    void subscribeClient(ClientInterface clientInterface) throws RemoteException;
     int loginUser(String username, String password) throws RemoteException;
 
     ArrayList<Todo> getTodoDatabase(String room) throws RemoteException, ClassNotFoundException;

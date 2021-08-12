@@ -4,6 +4,7 @@ package server;
  * Class is used to manage the server side of the application
  * */
 
+import client.ClientInterface;
 import server.database.login.LoginDAO;
 import server.database.registration.RegistrationDAO;
 import server.database.todolist.Todo;
@@ -22,9 +23,11 @@ import java.util.ArrayList;
 
 public class Server extends UnicastRemoteObject implements ServerInterface, Serializable {
 
-    public Server() throws RemoteException { }
+    ArrayList<ClientInterface> clients;
 
-
+    public Server() throws RemoteException {
+        clients = new ArrayList<>();
+    }
 
     @Override
     public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException {
@@ -39,6 +42,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         }
         return 0;
     }
+
+    @Override
+    public void subscribeClient(ClientInterface clientInterface) throws RemoteException {
+        clients.add(clientInterface);
+    }
+
     @Override
     public int loginUser(String username, String password) throws RemoteException {
         try {

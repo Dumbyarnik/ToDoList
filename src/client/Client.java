@@ -10,7 +10,10 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Client implements  ClientInterface{
-    public ServerInterface serverInterface;
+    private ServerInterface serverInterface;
+    String room;
+    String username;
+
 
     public Client() throws RemoteException {
         UnicastRemoteObject.exportObject(this, 0);
@@ -19,5 +22,22 @@ public class Client implements  ClientInterface{
     public void startClient() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry();
         serverInterface = (ServerInterface) registry.lookup("ChatServer");
+    }
+
+    @Override
+    public String getRoom() throws RemoteException {
+        return room;
+    }
+    @Override
+    public void setRoom(String room) throws RemoteException {
+        this.room = room;
+    }
+    @Override
+    public String getUsername() throws RemoteException {
+        return username;
+    }
+    @Override
+    public void setUsername(String username) throws RemoteException {
+        this.username = username;
     }
 }

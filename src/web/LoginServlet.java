@@ -80,18 +80,6 @@ public class LoginServlet extends CommonServlet {
         if (result == 1) {
             request.getSession().setAttribute("user_logged", username);
             response.sendRedirect("/todoapp/room");
-
-
-            /* experimental code for the client */
-            Client client = new Client();
-            try {
-                client.startClient();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-
-            request.getSession().setAttribute("client", client);
-            /* end of experimental code */
         }
         // if username or password were wrong
         else {
