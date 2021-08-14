@@ -103,8 +103,6 @@ public class TodoDAO {
     public int addTodo(String item, String status, String date, String room) throws ClassNotFoundException, SQLException {
 
         int result = 0;
-        long now = System.currentTimeMillis();
-
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO todos (ToDoName, Status, ToDoDate, Room)\n" +

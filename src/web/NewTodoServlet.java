@@ -78,7 +78,8 @@ import java.rmi.registry.Registry;
 
             // adding todo on the server
             try {
-                serverInterface.addTodoDatabase(item, status, date, room);
+                serverInterface.addTodoDatabase(item, status, date, room,
+                        request.getSession().getAttribute("user_logged").toString());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

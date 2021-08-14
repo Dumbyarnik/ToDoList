@@ -96,9 +96,17 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
-    public int addTodoDatabase(String item, String status, String date, String room) throws RemoteException, ClassNotFoundException, SQLException {
+    public int addTodoDatabase(String item, String status, String date, String room, String username) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
         int result = todoDAO.addTodo(item, status, date, room);
+
+        // if the item was added then update every client in the room
+        if (result == 1){
+            // updating every client in the room
+            String update = "user " + username + " created todo '" + item + "'";
+            updateClients(room, update);
+        }
+
         return result;
     }
 
@@ -109,7 +117,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         String name = todoDAO.getTodoName(id);
         int status = todoDAO.deleteTodo(id);
 
-        String update = username + " deleted " + name;
+        // updating every client in the room
+        String update = "user " + username + " deleted todo '" + name + "'";
         updateClients(room, update);
 
         return status;
