@@ -97,7 +97,9 @@ import java.rmi.registry.Registry;
 
             // editing todo on the server
             try {
-                serverInterface.updateTodoDatabase(id, item, status, date);
+                serverInterface.updateTodoDatabase(id, item, status, date,
+                        request.getSession().getAttribute("room").toString(),
+                        request.getSession().getAttribute("user_logged").toString());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
