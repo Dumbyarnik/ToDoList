@@ -6,10 +6,11 @@
 
     <!--
     attributes of session are:
-    user_logged - for understanding if the user was logged
+    user_logged - for understanding if the user was logged (putting username here)
     todo - for giving newTodo.jsp all the info for editing
     room - name of the room
     error - for errors in login or signup
+    client - for the client object
     -->
 
     <!--Register Servlet -->

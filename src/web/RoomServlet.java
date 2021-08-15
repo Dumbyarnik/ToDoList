@@ -4,6 +4,8 @@ package web;
  * Class is used to control room screen
  * */
 
+import client.Client;
+import client.ClientInterface;
 import server.ServerInterface;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +63,20 @@ public class RoomServlet extends CommonServlet {
         // setting parameter room and go to todo
         String room = request.getParameter("room");
         request.getSession().setAttribute("room", room);
+
+        // Creating new client for the session and registering it by server
+        Client client = new Client();
+        try {
+            client.startClient();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        }
+        client.setRoom(room);
+        client.setUsername(request.getSession().getAttribute("user_logged").toString());
+        serverInterface.subscribeClient(client);
+        request.getSession().setAttribute("client", client);
+
+        // going to todolist page
         response.sendRedirect("/todoapp/todolist");
     }
 }

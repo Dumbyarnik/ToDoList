@@ -4,6 +4,7 @@ package web;
  * Class is used to control login screen
  * */
 
+import client.Client;
 import server.ServerInterface;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

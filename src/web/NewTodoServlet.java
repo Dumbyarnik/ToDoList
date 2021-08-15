@@ -5,6 +5,8 @@ package web;
  * */
 
 import server.ServerInterface;
+import server.database.todolist.Todo;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,8 @@ import java.rmi.registry.Registry;
         // Server side
         Registry registry = null;
         ServerInterface serverInterface;
+
+        String old_item = "";
 
         public void init() {
             // initializing server
@@ -64,6 +68,13 @@ import java.rmi.registry.Registry;
                 // if user chose a room
                 if (validateRoom(request, response)) {
                     request.getRequestDispatcher("/jsp/newTodo.jsp").forward(request, response);
+
+                    // getting the old name of the item for the updates
+                    if (request.getSession().getAttribute("todo") != null){
+                        Todo todo = (Todo)request.getSession().getAttribute("todo");
+                        old_item = todo.getItem();
+                    }
+
                     request.getSession().setAttribute("todo", null);
                 }
             }
@@ -78,7 +89,8 @@ import java.rmi.registry.Registry;
 
             // adding todo on the server
             try {
-                serverInterface.addTodoDatabase(item, status, date, room);
+                serverInterface.addTodoDatabase(item, status, date, room,
+                        request.getSession().getAttribute("user_logged").toString());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -96,7 +108,10 @@ import java.rmi.registry.Registry;
 
             // editing todo on the server
             try {
-                serverInterface.updateTodoDatabase(id, item, status, date);
+                serverInterface.updateTodoDatabase(id, item, status, date,
+                        request.getSession().getAttribute("room").toString(),
+                        request.getSession().getAttribute("user_logged").toString(),
+                        old_item);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

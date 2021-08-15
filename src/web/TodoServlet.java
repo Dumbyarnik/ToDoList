@@ -4,6 +4,7 @@ package web;
  * Class is used to control todos screen
  * */
 
+import client.Client;
 import server.ServerInterface;
 import server.database.todolist.Todo;
 import javax.servlet.ServletException;
@@ -106,6 +107,9 @@ public class TodoServlet extends CommonServlet {
         ArrayList<Todo> todos = serverInterface.getTodoDatabase(
                 request.getSession().getAttribute("room").toString());
         request.setAttribute("todoList", todos);
+        // Setting attribute updates
+        Client client = (Client)request.getSession().getAttribute("client");
+        request.getSession().setAttribute("updates", client.getUpdates());
         // refreshing every 5 seconds
         response.setIntHeader("Refresh", 3);
         request.getRequestDispatcher("/jsp/todoList.jsp").forward(request, response);
@@ -113,8 +117,10 @@ public class TodoServlet extends CommonServlet {
 
     private void deleteTodo(HttpServletRequest request, HttpServletResponse response, int id)
             throws SQLException, IOException, ClassNotFoundException, ServletException {
-        // deleteing the id
-        serverInterface.deleteTodoDatabase(id);
+        // deleteing the id and updating all clients in the room
+        serverInterface.deleteTodoDatabase(id,
+                request.getSession().getAttribute("room").toString(),
+                request.getSession().getAttribute("user_logged").toString());
         this.doGet(request, response);
     }
 

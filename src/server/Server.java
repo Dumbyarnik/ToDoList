@@ -4,6 +4,7 @@ package server;
  * Class is used to manage the server side of the application
  * */
 
+import client.ClientInterface;
 import server.database.login.LoginDAO;
 import server.database.registration.RegistrationDAO;
 import server.database.todolist.Todo;
@@ -22,9 +23,20 @@ import java.util.ArrayList;
 
 public class Server extends UnicastRemoteObject implements ServerInterface, Serializable {
 
-    public Server() throws RemoteException { }
+    ArrayList<ClientInterface> clients;
 
+    public Server() throws RemoteException {
+        clients = new ArrayList<>();
+    }
 
+    private void updateClients(String room, String update) throws RemoteException {
+        for (ClientInterface client : clients){
+            // if it is the right room, then we update all clients there
+            if (client.getRoom().equals(room)){
+                client.addUpdate(update);
+            }
+        }
+    }
 
     @Override
     public int subscribeUserDatabase(String firstName, String lastName, String userName, String password) throws ClassNotFoundException, RemoteException, NotSerializableException {
@@ -39,6 +51,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         }
         return 0;
     }
+
     @Override
     public int loginUser(String username, String password) throws RemoteException {
         try {
@@ -50,6 +63,22 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void subscribeClient(ClientInterface clientInterface) throws RemoteException {
+        clients.add(clientInterface);
+        System.out.println(clientInterface.getUsername() + " was subscribed");
+    }
+
+    @Override
+    public void unsubscribeClient(ClientInterface clientInterface) throws RemoteException {
+        clients.remove(clientInterface);
+        System.out.println(clientInterface.getUsername() + " was removed");
+
+        System.out.println("Remained clients are: ");
+        for (ClientInterface tmp : clients)
+            System.out.println(tmp.getUsername());
     }
 
     @Override
@@ -67,23 +96,46 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
     }
 
     @Override
-    public int addTodoDatabase(String item, String status, String date, String room) throws RemoteException, ClassNotFoundException, SQLException {
+    public int addTodoDatabase(String item, String status, String date, String room, String username) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
         int result = todoDAO.addTodo(item, status, date, room);
+
+        // if the item was added then update every client in the room
+        if (result == 1){
+            // updating every client in the room
+            String update = "user " + username + " created todo '" + item + "'";
+            updateClients(room, update);
+        }
+
         return result;
     }
 
     @Override
-    public int deleteTodoDatabase(int id) throws RemoteException, ClassNotFoundException, SQLException {
+    public int deleteTodoDatabase(int id, String room, String username) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
+
+        String name = todoDAO.getTodoName(id);
         int status = todoDAO.deleteTodo(id);
+
+        // updating every client in the room
+        String update = "user " + username + " deleted todo '" + name + "'";
+        updateClients(room, update);
+
         return status;
     }
 
     @Override
-    public int updateTodoDatabase(int id, String item, String status, String date) throws RemoteException, ClassNotFoundException, SQLException {
+    public int updateTodoDatabase(int id, String item, String status, String date,
+                                  String room, String username, String old_item) throws RemoteException, ClassNotFoundException, SQLException {
         TodoDAO todoDAO = new TodoDAO();
         int result = todoDAO.updateTodo(id, item, status, date);
+
+        // updating every client in the room
+        if (result == 1){
+            String update = "user " + username + " updated todo '" + old_item + "'";
+            updateClients(room, update);
+        }
+
         return result;
     }
 

@@ -103,8 +103,6 @@ public class TodoDAO {
     public int addTodo(String item, String status, String date, String room) throws ClassNotFoundException, SQLException {
 
         int result = 0;
-        long now = System.currentTimeMillis();
-
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO todos (ToDoName, Status, ToDoDate, Room)\n" +
@@ -141,7 +139,6 @@ public class TodoDAO {
             tmp.setItem(rs.getString("ToDoName"));
             tmp.setStatus(rs.getString("Status"));
             tmp.setDate(rs.getDate("ToDoDate"));
-
         } catch (InvocationTargetException invocationTargetException) {
             invocationTargetException.printStackTrace();
         } catch (NoSuchMethodException noSuchMethodException) {
@@ -186,5 +183,30 @@ public class TodoDAO {
         }
 
         return result;
+    }
+
+    // gets name of todo with the help of id
+    public String getTodoName(int id){
+        String name = "";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement("SELECT ToDoName\n" +
+                             "from todos where ToDoID=" + id + ";")) {
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next();
+            name = rs.getString("ToDoName");
+        } catch (InvocationTargetException invocationTargetException) {
+            invocationTargetException.printStackTrace();
+        } catch (NoSuchMethodException noSuchMethodException) {
+            noSuchMethodException.printStackTrace();
+        } catch (InstantiationException instantiationException) {
+            instantiationException.printStackTrace();
+        } catch (IllegalAccessException | ClassNotFoundException | SQLException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        }
+
+        return name;
     }
 }
