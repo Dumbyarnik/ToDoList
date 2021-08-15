@@ -75,7 +75,13 @@
             </table>
         </div>
     </form>
+    <br>
 
+    <h4>Updates</h4>
+    <c:forEach items="${sessionScope.updates}" var="item">
+        ${item}<br>
+    </c:forEach>
+    <br>
 </div>
 <jsp:include page='footer.jsp'>
     <jsp:param name="header" value=""/>

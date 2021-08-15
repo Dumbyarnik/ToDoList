@@ -107,6 +107,9 @@ public class TodoServlet extends CommonServlet {
         ArrayList<Todo> todos = serverInterface.getTodoDatabase(
                 request.getSession().getAttribute("room").toString());
         request.setAttribute("todoList", todos);
+        // Setting attribute updates
+        Client client = (Client)request.getSession().getAttribute("client");
+        request.getSession().setAttribute("updates", client.getUpdates());
         // refreshing every 5 seconds
         response.setIntHeader("Refresh", 3);
         request.getRequestDispatcher("/jsp/todoList.jsp").forward(request, response);
