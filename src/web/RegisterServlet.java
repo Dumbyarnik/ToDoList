@@ -86,7 +86,7 @@ import java.rmi.registry.Registry;
                 request.getSession().setAttribute("error", "Username ist schon belegt");
                 response.sendRedirect("/todoapp/register");
             } else {
-                response.sendRedirect("/todoapp/login");
+                response.sendRedirect("/todoapp/userlogin");
             }
         }
     }

@@ -13,6 +13,7 @@ import server.database.todolist.TodoDAO;
 import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -33,7 +34,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Seri
         for (ClientInterface client : clients){
             // if it is the right room, then we update all clients there
             if (client.getRoom().equals(room)){
-                client.addUpdate(update);
+                try { client.addUpdate(update); }
+                catch(ConnectException e) {
+                    clients.remove(client);
+                }
+
             }
         }
     }
