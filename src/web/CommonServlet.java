@@ -43,7 +43,8 @@ public class CommonServlet extends HttpServlet {
             throws ServletException, IOException {
         // unsubscribing the client
         Client client = (Client) request.getSession().getAttribute("client");
-        client.unsubscribeClient();
+        if (client != null)
+            client.unsubscribeClient();
 
         // setting attributes to null and go to login screen
         request.getSession().setAttribute("client", null);
